@@ -9,9 +9,10 @@
     <script src="main.js"></script>
 
     <script>
-        var canvas, ctx;
+        var ballsize = 10;
+        var canvas, ctx;    
         var mX, mY;
-        var bounce = 300, bounceY = 500;
+        var bounceX = 300, bounceY = 500;
         var dirX = 1, dirY = 1;
 
         function init() {
@@ -19,35 +20,40 @@
             ctx = canvas.getContext("2d");
             canvas.style.border = "red 1px solid";
 
-            bounceBall();
+            drawGame();
         }
 
-        function bounceBall() {
+        function drawGame() {
             
-
             //Update Teil (Wo ist meine Kugel)
-            if (bounceX >= canvas.width-40 || bounceX <= 0+40) dirX *= -1;
-            if (bounceY >= canvas.width-40 || bounceY <= 0+40) dirY *= -1;
+            if (bounceX >= canvas.width-ballsize || bounceX <= 0+ballsize) dirX *= -1;
+            if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
 
             bounceX += 2 * dirX;
             bounceY += 3 * dirY;
 
             //Draw Teil (Male das Spiel neu)
-            ctx.clearRect(0,0,700,700);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
             ctx.beginPath();
-            ctx.arc(bounceX,bounceY,40,0,2 * Math.PI);
+            ctx.arc(bounceX,bounceY,ballsize,0,2 * Math.PI);
             ctx.stroke();
 
-            setTimeout(bounceBall, 3) //ms
+            setTimeout(drawGame, 3) //ms
 
             
         }
+
+         function moveMouse(mouse) {
+            mX = mouse.clientX-canvas.offsetLeft
+            mY = mouse.clientY-canvas.offsetTop
+        }
+        document.addEventListener("mousemove", moveMouse, false);
+
 
         document.addEventListener("DOMContentLoaded",init, false);
     </script>
 </head>
 <body>
-        <h2>ERROR 404</h2>
-        <canvas id="canvas" width="800" height="600">
+        <canvas id="canvas" width="1000" height="750">
 </body>
 </html>
