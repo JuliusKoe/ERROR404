@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ERROR 404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <script>
+        var canvas, ctx;
+        var mX, mY;
+        var bounce = 300, bounceY = 500;
+        var dirX = 1, dirY = 1;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            canvas.style.border = "red 1px solid";
+
+            bounceBall();
+        }
+
+        function bounceBall() {
+            
+
+            //Update Teil (Wo ist meine Kugel)
+            if (bounceX >= canvas.width-40 || bounceX <= 0+40) dirX *= -1;
+            if (bounceY >= canvas.width-40 || bounceY <= 0+40) dirY *= -1;
+
+            bounceX += 2 * dirX;
+            bounceY += 3 * dirY;
+
+            //Draw Teil (Male das Spiel neu)
+            ctx.clearRect(0,0,700,700);
+            ctx.beginPath();
+            ctx.arc(bounceX,bounceY,40,0,2 * Math.PI);
+            ctx.stroke();
+
+            setTimeout(bounceBall, 3) //ms
+
+            
+        }
+
+        document.addEventListener("DOMContentLoaded",init, false);
+    </script>
+</head>
+<body>
+        <h2>ERROR 404</h2>
+        <canvas id="canvas" width="800" height="600">
+</body>
+</html>
