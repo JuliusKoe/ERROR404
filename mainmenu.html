@@ -14,13 +14,37 @@
             ctx = canvas.getContext("2d");
             canvas.style.border = "red 1px solid";
 
+            drawStartbutton();
+        }
+
+        function drawStartbutton () {
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(350,250,100,100);
+            ctx.stroke();
+
+            ctx.fillStyle = "#FF00FF";
+            ctx.font = "bold 16px Arial";
+            ctx.fillText("Zibri", (canvas.width / 2) - 17, (canvas.height / 2) + 8);
+            }
+        
+        function startGame () {
+
+        }
+        function setCords (ev) {
+          xCord = ev.clientX - canvas.offsetLeft
+          yCord = ev.clientY - canvas.offsetTop
         }
     document.addEventListener("DOMContentLoaded",init, false);
+    document.addEventListener("mousemove", setCords, false);
     </script>
 </head>
 <body>
-        <h1>ERROR 404</h1>
+        <h1>ERROR 404
+
+            <button onclick="startGame()">Click me</button>
+        </h1>
         <canvas id="canvas" width="800" height="600">
+        <button onclick="startGame()">Click me</button>
     
 </body>
 </html>
