@@ -12,26 +12,38 @@
         var ballsize = 10;
         var canvas, ctx;    
         var mX, mY;
-        var bounceX = 300, bounceY = 500;
+        var bounceX = 300, bounceY = 100;
         var dirX = 1, dirY = 1;
         var pWidth = 150; //Panel Breite
         var pHeight = 20; //Panel Höhe
         var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
+        var isdead = false;
 
         
 
         function init() {
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
-            canvas.style.border = "pink 5px solid";
+            canvas.style.border = "#FF00BF 5px solid";
+            posP = canvas.width/2;
 
-            drawGame();
+            ctx.fillStyle="#FF00BF";
+            ctx.font = "30px Arial";
+            ctx.textAlign="center";
+            ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
+
+            setTimeout(drawGame,700);
         }
 
         function drawGame() {
 
             //Spielfeld leeren
             ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            //Game Layout
+                //Todeszone
+                ctx.fillStyle="#0404B4";
+                ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
             //Spielfeld neumalen
             drawPanel()
@@ -41,7 +53,8 @@
             //Tod oder Weiter?
             dead()
             
-
+            
+            
             
             
 
@@ -83,12 +96,13 @@
         function drawScore() {
             ctx.fillStyle='#FF00BF';
             ctx.font = "30px Arial";
+            ctx.textAlign="left";
             ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
             ctx.fillText("X:"+bounceX, 900, 60);
             ctx.fillText("Y:"+bounceY, 900, 100);
         }
 
-         function panel(mouse) {
+        function panel(mouse) {
             mX = mouse.clientX-canvas.offsetLeft
             mY = mouse.clientY-canvas.offsetTop
 
@@ -105,14 +119,36 @@
         }
         document.addEventListener("mousemove", panel, false);
 
+        //Bin ich "dead" (Ball ist am unteren Border) oder geht das Spiel weiter?
         function dead() {
-            if (bounceX >= canvas.height) {
-                ctx.fillText("Tod",canvas.width/2, canvas.height/2);
-                
+            if (bounceY >= canvas.height-ballsize) {
+                ctx.textAlign="center";
+                ctx.fillText("DEATH - Für neues Spiel Leertaste",canvas.width/2, canvas.height/2);
+                isdead = true;
             } else {
-                setTimeout(drawGame, 1) //ms
+                setTimeout(drawGame, 1);
             }
         }
+
+        //Leertaste wurde gedrückt -> Neues Game wird gestartet
+        function newGame(key) {
+            if (isdead == true) {
+                var key_press = String.fromCharCode(key.keyCode);
+                var key_code = key.keyCode;
+                if (key_press == " ") {
+                    ctx.textAlign="center";
+                    ctx.fillText("Neues Game startet sofort!",canvas.width/2, canvas.height/2 + 50);
+                    bounceX = 300;
+                    bounceY = 100;
+                    dirX = 1;
+                    dirY = 1;
+                    isdead = false;
+                    setTimeout(drawGame, 700)
+                }
+            } 
+            
+        }
+        document.addEventListener("keydown", newGame, false);
 
 
         document.addEventListener("DOMContentLoaded",init, false);
