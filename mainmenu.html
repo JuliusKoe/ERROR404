@@ -7,18 +7,27 @@
     <title>Document</title>
     
     <script>
+        var canvasWidth = 800;
+        var canvasHeight = 600;
         var canvas, ctx;
         var startxpos = 300;
         var startxwidth = 200;
         var startypos = 250;
         var startyheight = 100;
-
+        var background = new Image();
         function init () {
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
-            canvas.style.border = "red 1px solid";
+            canvas.style.border = "pink 5px solid";
 
-            drawStartbutton();
+            background.src = "http://m.memegen.com/bvnpsq.jpg";
+
+            background.onload = function(){
+                ctx.drawImage(background,0,0,canvasWidth,canvasHeight);
+                drawStartbutton();
+                
+            }
+            
         }
 
         function drawStartbutton () {
