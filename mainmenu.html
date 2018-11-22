@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <script>
+        var canvas, ctx;
+        var startxpos = 300;
+        var startxwidth = 200;
+        var startypos = 250;
+        var startyheight = 100;
+
+        function init () {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            canvas.style.border = "red 1px solid";
+
+            drawStartbutton();
+        }
+
+        function drawStartbutton () {
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(startxpos,startypos,startxwidth,startyheight);
+            ctx.stroke();
+
+            ctx.fillStyle = "#000000";
+            ctx.font = "bold 16px Arial";
+            ctx.fillText("Start Game", (canvas.width / 2) - 35, (canvas.height / 2) + 8);
+            }
+        
+        function startGame () {
+            window.location.href("./ingame.html")
+        }
+        function setCords (ev) {
+          xCord = ev.clientX - canvas.offsetLeft
+          yCord = ev.clientY - canvas.offsetTop
+        }
+        function checkField (){
+            if (xCord > startxpos && xCord < xCord+startxwidth && yCord > startypos && yCord < startypos+startyheight)
+            {
+                startGame();
+            }
+        }
+    document.addEventListener("DOMContentLoaded",init, false);
+    document.addEventListener("mousemove", setCords, false);
+    document.addEventListener("mousedown", checkField, false);
+    </script>
+</head>
+<body>
+        <h1>ERROR 404
+
+            <button onclick="startGame()">Click me</button>
+        </h1>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <!--<button onclick="startGame()">Click me</button>-->
+    
+</body>
+</html>
