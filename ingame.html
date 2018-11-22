@@ -21,6 +21,7 @@
         var i = 0; //Hilfsvariable
         var key_press;
         var key_code;
+        var spielfeld = [];
 
         var background = new Image();
 
@@ -54,23 +55,25 @@
             dirX = 1, dirY = -1;
             //Spielfeld leeren
             ctx.clearRect(0,0,canvas.width,canvas.height);
-
             //Game Layout
             ctx.drawImage(background,0,0,1000,750);
                 //Todeszone
                 ctx.fillStyle="#0404B4";
                 ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
+            
+            
+            drawPanel()
+            drawScore()
+            drawLevel()
+            //Ball liegt auf dem Panel bis Taste gedrückt wird
+            bounceX = posP + pWidth/2;
+            drawBall()
+
             ctx.fillStyle="#FF00BF";
             ctx.font = "30px Arial";
             ctx.textAlign="center";
             ctx.fillText("Drücke A zum starten", canvas.width/2, canvas.height/2-100)
-            
-            drawPanel()
-            drawScore()
-            //Ball liegt auf dem Panel bis Taste gedrückt wird
-            bounceX = posP + pWidth/2;
-            drawBall()
 
             
             if (key_press == "A") {
@@ -97,6 +100,7 @@
             drawPanel()
             drawBall()
             drawScore()
+            drawLevel()
 
             //Tod oder Weiter?
             dead()
@@ -144,12 +148,29 @@
         }
 
         function drawScore() {
-            ctx.fillStyle='#FF00BF';
-            ctx.font = "30px Arial";
-            ctx.textAlign="left";
-            ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
-            ctx.fillText("X:"+bounceX, 900, 60);
-            ctx.fillText("Y:"+bounceY, 900, 100);
+            //ctx.fillStyle='#FF00BF';
+            //ctx.font = "30px Arial";
+            //ctx.textAlign="left";
+            //ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
+            //ctx.fillText("X:"+bounceX, 900, 60);
+            //ctx.fillText("Y:"+bounceY, 900, 100);
+        }
+
+        function drawLevel() {
+            //Level implementieren
+            ctx.fillStyle='#0000FF';
+            
+            for (var i = 0; i<6; i++) {
+                spielfeld[i] = [];
+                for (var z = 0; z<5; z++) {
+                    spielfeld[i][z] = 1;
+                    if (spielfeld[i][z]) {
+                        ctx.fillRect(i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30)
+                    }
+                }
+            }
+
+            //ctx.fillRect(400,100,100,30)
         }
 
         function panel(mouse) {
@@ -173,6 +194,7 @@
         function dead() {
             if (bounceY >= canvas.height-ballsize) {
                 ctx.textAlign="center";
+                ctx.fillStyle='#FF00BF';
                 ctx.fillText("DEATH - Für neues Spiel Leertaste",canvas.width/2, canvas.height/2);
                 isdead = true;
                 newGame();
@@ -185,6 +207,7 @@
         function newGame() {
             if (isdead == true && key_press == " ") {
                 ctx.textAlign="center";
+                ctx.fillStyle='#FF00BF';
                 ctx.fillText("Neues Game startet sofort!",canvas.width/2, canvas.height/2 + 50);
                 bounceX = 300;
                 bounceY = 100;
