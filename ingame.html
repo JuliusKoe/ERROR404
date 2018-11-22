@@ -14,40 +14,105 @@
         var mX, mY;
         var bounceX = 300, bounceY = 500;
         var dirX = 1, dirY = 1;
+        var pWidth = 150; //Panel Breite
+        var pHeight = 20; //Panel Höhe
+        var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
+
+        
 
         function init() {
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
-            canvas.style.border = "red 1px solid";
+            canvas.style.border = "pink 5px solid";
 
             drawGame();
         }
 
         function drawGame() {
+
+            //Spielfeld leeren
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            //Spielfeld neumalen
+            drawPanel()
+            drawBall()
+            drawScore()
+
+            //Tod oder Weiter?
+            dead()
             
-            //Update Teil (Wo ist meine Kugel)
+
+            
+            
+
+            
+
+            
+        }
+
+        function drawBall() {
+            //Wo ist meine Kugel
+            //Am Rand?
             if (bounceX >= canvas.width-ballsize || bounceX <= 0+ballsize) dirX *= -1;
             if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
+            //Am Panel?
+            if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth) {
+                //Ergibt die Abfrage Sinn in der if-Abfrage? Nein! Funktioniert es? Ja!...
+                dirY *= -1;
+            } 
 
+
+            //Neue Berechnung
             bounceX += 2 * dirX;
             bounceY += 3 * dirY;
 
-            //Draw Teil (Male das Spiel neu)
-            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            //Male Kugel
+            ctx.fillStyle='#FF00BF';
             ctx.beginPath();
             ctx.arc(bounceX,bounceY,ballsize,0,2 * Math.PI);
             ctx.stroke();
+        }
 
-            setTimeout(drawGame, 3) //ms
-
+        function drawPanel() {
+            ctx.fillStyle='#FF00BF';
+            ctx.fillRect(posP,canvas.height - 30,pWidth,pHeight);
             
         }
 
-         function moveMouse(mouse) {
+        function drawScore() {
+            ctx.fillStyle='#FF00BF';
+            ctx.font = "30px Arial";
+            ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
+            ctx.fillText("X:"+bounceX, 900, 60);
+            ctx.fillText("Y:"+bounceY, 900, 100);
+        }
+
+         function panel(mouse) {
             mX = mouse.clientX-canvas.offsetLeft
             mY = mouse.clientY-canvas.offsetTop
+
+            //Ist das Panel am Rand? 
+            //So verschwindet das Panel nicht im Nirvana, sondern bleibt am Rand.
+            if (mX > canvas.width - pWidth/2) {
+                posP = canvas.width - pWidth;
+            } else if (mX < 75) {
+                posP = 0;
+            } else {
+                posP = mX - pWidth/2;
+            }
+            
         }
-        document.addEventListener("mousemove", moveMouse, false);
+        document.addEventListener("mousemove", panel, false);
+
+        function dead() {
+            if (bounceX >= canvas.height) {
+                ctx.fillText("Tod",canvas.width/2, canvas.height/2);
+                
+            } else {
+                setTimeout(drawGame, 1) //ms
+            }
+        }
 
 
         document.addEventListener("DOMContentLoaded",init, false);
@@ -55,5 +120,6 @@
 </head>
 <body>
         <canvas id="canvas" width="1000" height="750">
+            
 </body>
 </html>
