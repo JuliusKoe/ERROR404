@@ -8,6 +8,10 @@
     
     <script>
         var canvas, ctx;
+        var startxpos = 300;
+        var startxwidth = 200;
+        var startypos = 250;
+        var startyheight = 100;
 
         function init () {
             canvas = document.getElementById("canvas");
@@ -19,23 +23,30 @@
 
         function drawStartbutton () {
             ctx.fillStyle = "#FF0000";
-            ctx.fillRect(350,250,100,100);
+            ctx.fillRect(startxpos,startypos,startxwidth,startyheight);
             ctx.stroke();
 
             ctx.fillStyle = "#000000";
             ctx.font = "bold 16px Arial";
-            ctx.fillText("Start Game", (canvas.width / 2) - 17, (canvas.height / 2) + 8);
+            ctx.fillText("Start Game", (canvas.width / 2) - 35, (canvas.height / 2) + 8);
             }
         
         function startGame () {
-
+            window.location.href("./ingame.html")
         }
         function setCords (ev) {
           xCord = ev.clientX - canvas.offsetLeft
           yCord = ev.clientY - canvas.offsetTop
         }
+        function checkField (){
+            if (xCord > startxpos && xCord < xCord+startxwidth && yCord > startypos && yCord < startypos+startyheight)
+            {
+                startGame();
+            }
+        }
     document.addEventListener("DOMContentLoaded",init, false);
     document.addEventListener("mousemove", setCords, false);
+    document.addEventListener("mousedown", checkField, false);
     </script>
 </head>
 <body>
@@ -43,8 +54,8 @@
 
             <button onclick="startGame()">Click me</button>
         </h1>
-        <canvas id="canvas" width="800" height="600">
-        <button onclick="startGame()">Click me</button>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <!--<button onclick="startGame()">Click me</button>-->
     
 </body>
 </html>
