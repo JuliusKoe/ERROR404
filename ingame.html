@@ -56,6 +56,7 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
             //Game Layout
+            ctx.drawImage(background,0,0,1000,750);
                 //Todeszone
                 ctx.fillStyle="#0404B4";
                 ctx.fillRect(0,canvas.height-5,canvas.width,7);
@@ -86,12 +87,13 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
             //Game Layout
+            ctx.drawImage(background,0,0,1000,750);
                 //Todeszone
                 ctx.fillStyle="#0404B4";
                 ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
             //Spielfeld neumalen
-            ctx.drawImage(background,0,0,1000,750);
+            
             drawPanel()
             drawBall()
             drawScore()
@@ -173,6 +175,7 @@
                 ctx.textAlign="center";
                 ctx.fillText("DEATH - Für neues Spiel Leertaste",canvas.width/2, canvas.height/2);
                 isdead = true;
+                newGame();
             } else {
                 setTimeout(drawGame, 1);
             }
@@ -189,7 +192,9 @@
                 dirY = 1;
                 isdead = false;
                 setTimeout(gamePending, 700)
-            } 
+            } else {
+                setTimeout(newGame, 5);
+            }
             
         }
 
