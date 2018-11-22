@@ -12,7 +12,7 @@
         var ballsize = 10;
         var canvas, ctx;    
         var mX, mY;
-        var bounceX = 300, bounceY = 500;
+        var bounceX = 300, bounceY = 100;
         var dirX = 1, dirY = 1;
         var pWidth = 150; //Panel Breite
         var pHeight = 20; //Panel Höhe
@@ -106,9 +106,8 @@
         document.addEventListener("mousemove", panel, false);
 
         function dead() {
-            if (bounceX >= canvas.height) {
+            if (bounceY >= canvas.height-ballsize) {
                 ctx.fillText("Tod",canvas.width/2, canvas.height/2);
-                
             } else {
                 setTimeout(drawGame, 1) //ms
             }
