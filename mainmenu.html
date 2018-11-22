@@ -20,7 +20,7 @@
             ctx = canvas.getContext("2d");
             canvas.style.border = "pink 5px solid";
 
-            background.src = "http://m.memegen.com/bvnpsq.jpg";
+            background.src = "https://wallpapertag.com/wallpaper/full/7/a/1/627574-glitter-background-images-1920x1080-notebook.jpg";
 
             background.onload = function(){
                 ctx.drawImage(background,0,0,canvasWidth,canvasHeight);
@@ -31,13 +31,13 @@
         }
 
         function drawStartbutton () {
-            ctx.fillStyle = "#FF0000";
+            ctx.fillStyle = "#FD029C";
             ctx.fillRect(startxpos,startypos,startxwidth,startyheight);
             ctx.stroke();
 
             ctx.fillStyle = "#000000";
             ctx.font = "bold 16px Arial";
-            ctx.fillText("Start Game", (canvas.width / 2) - 35, (canvas.height / 2) + 8);
+            ctx.fillText("Start Game", (canvas.width / 2) - 45, (canvas.height / 2) + 8);
             }
         
         function startGame () {
