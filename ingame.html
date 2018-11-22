@@ -12,12 +12,15 @@
         var ballsize = 10;
         var canvas, ctx;    
         var mX, mY;
-        var bounceX = 300, bounceY = 100;
-        var dirX = 1, dirY = 1;
+        var bounceX, bounceY;
+        var dirX = 1, dirY = -1;
         var pWidth = 150; //Panel Breite
         var pHeight = 20; //Panel Höhe
         var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
         var isdead = false;
+        var i = 0; //Hilfsvariable
+        var key_press;
+        var key_code;
 
         
 
@@ -32,9 +35,44 @@
             ctx.textAlign="center";
             ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
-            setTimeout(drawGame,700);
+
+            //setTimeout(drawGame,700);
+            setTimeout(gamePending,600);
         }
 
+
+        function gamePending(startkey) {
+
+            bounceY = canvas.height - 41;
+            dirX = 1, dirY = -1;
+            //Spielfeld leeren
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            //Game Layout
+                //Todeszone
+                ctx.fillStyle="#0404B4";
+                ctx.fillRect(0,canvas.height-5,canvas.width,7);
+
+            ctx.fillStyle="#FF00BF";
+            ctx.font = "30px Arial";
+            ctx.textAlign="center";
+            ctx.fillText("Drücke A zum starten", canvas.width/2, canvas.height/2-100)
+            
+            drawPanel()
+            drawScore()
+            //Ball liegt auf dem Panel bis Taste gedrückt wird
+            bounceX = posP + pWidth/2;
+            drawBall()
+
+            
+            if (key_press == "A") {
+                drawGame()
+            } else {
+                setTimeout(gamePending,1);            
+            }
+        }
+
+        
         function drawGame() {
 
             //Spielfeld leeren
@@ -131,24 +169,26 @@
         }
 
         //Leertaste wurde gedrückt -> Neues Game wird gestartet
-        function newGame(key) {
-            if (isdead == true) {
-                var key_press = String.fromCharCode(key.keyCode);
-                var key_code = key.keyCode;
-                if (key_press == " ") {
-                    ctx.textAlign="center";
-                    ctx.fillText("Neues Game startet sofort!",canvas.width/2, canvas.height/2 + 50);
-                    bounceX = 300;
-                    bounceY = 100;
-                    dirX = 1;
-                    dirY = 1;
-                    isdead = false;
-                    setTimeout(drawGame, 700)
-                }
+        function newGame() {
+            if (isdead == true && key_press == " ") {
+                ctx.textAlign="center";
+                ctx.fillText("Neues Game startet sofort!",canvas.width/2, canvas.height/2 + 50);
+                bounceX = 300;
+                bounceY = 100;
+                dirX = 1;
+                dirY = 1;
+                isdead = false;
+                setTimeout(gamePending, 700)
             } 
             
         }
-        document.addEventListener("keydown", newGame, false);
+
+        function whichkey(key) {
+            key_press = String.fromCharCode(key.keyCode);
+            key_code = key.keyCode;  
+            console.log(key_code, key_press);  
+        }
+        document.addEventListener("keydown", whichkey, false);
 
 
         document.addEventListener("DOMContentLoaded",init, false);
