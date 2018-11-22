@@ -21,7 +21,7 @@
         var i = 0; //Hilfsvariable
         var key_press;
         var key_code;
-        var spielfeld = [];
+        var spielfeld;
 
         var background = new Image();
 
@@ -44,6 +44,19 @@
             ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
 
+            spielfeld = new Array();
+            for (let i = 0; i<6; i++) {
+                spielfeld[i] = new Array();
+                for (let z = 0; z<5; z++) {
+                    spielfeld[i][z] = 1;
+                    console.log(i +" "+ z);
+                    console.log(JSON.stringify(spielfeld));
+                }
+            }
+            console.log(JSON.stringify(spielfeld));
+            console.log(spielfeld[5][4]);
+
+
             //setTimeout(drawGame,700);
             setTimeout(gamePending,600);
         }
@@ -63,12 +76,12 @@
 
             
             
-            drawPanel()
-            drawScore()
-            drawLevel()
+            drawPanel();
+            drawScore();
+            drawLevel();
             //Ball liegt auf dem Panel bis Taste gedrückt wird
             bounceX = posP + pWidth/2;
-            drawBall()
+            drawBall();
 
             ctx.fillStyle="#FF00BF";
             ctx.font = "30px Arial";
@@ -77,7 +90,7 @@
 
             
             if (key_press == "A") {
-                drawGame()
+                drawGame();
             } else {
                 setTimeout(gamePending,1);            
             }
@@ -97,13 +110,13 @@
 
             //Spielfeld neumalen
             
-            drawPanel()
-            drawBall()
-            drawScore()
-            drawLevel()
+            drawPanel();
+            drawBall();
+            drawScore();
+            drawLevel();
 
             //Tod oder Weiter?
-            dead()
+            dead();
             
             
             
@@ -124,7 +137,18 @@
             if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth) {
                 //Ergibt die Abfrage Sinn in der if-Abfrage? Nein! Funktioniert es? Ja!...
                 dirY *= -1;
-            } 
+            }
+            //Am Stein?
+            for (var i = 0; i<6; i++) {
+                spielfeld[i] = [];
+                for (var z = 0; z<5; z++) {
+                    //i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30
+                    if (i * (canvas.width/spielfeld.length) <= bounceX <= i * (canvas.width/spielfeld.length) + canvas.width/spielfeld.length-5 && 20+z*50 <=bounceY <= 50+z*50) {
+                        spielfeld[i][z] = 0;
+                        //console.log("Hit 1");
+                    }
+                }
+            }
 
 
             //Neue Berechnung
@@ -160,11 +184,12 @@
             //Level implementieren
             ctx.fillStyle='#0000FF';
             
-            for (var i = 0; i<6; i++) {
-                spielfeld[i] = [];
-                for (var z = 0; z<5; z++) {
-                    spielfeld[i][z] = 1;
-                    if (spielfeld[i][z]) {
+            for (i = 0; i<6; i++) {
+                for (z = 0; z<5; z++) {
+                    if (spielfeld[i][z] == 1) {
+                        console.log(i + " " + z);   
+                        ctx.fillStyle='#0000FF';
+                        ctx.fillRect(i*10,z*10,5,5);
                         ctx.fillRect(i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30)
                     }
                 }
