@@ -22,6 +22,8 @@
         var key_press;
         var key_code;
         var spielfeld;
+        var brickWidth;
+        var score = 0;
 
         var background = new Image();
 
@@ -49,14 +51,10 @@
                 spielfeld[i] = new Array();
                 for (let z = 0; z<5; z++) {
                     spielfeld[i][z] = 1;
-                    console.log(i +" "+ z);
-                    console.log(JSON.stringify(spielfeld));
                 }
             }
-            console.log(JSON.stringify(spielfeld));
-            console.log(spielfeld[5][4]);
 
-
+            brickWidth = canvas.width / spielfeld.length
             //setTimeout(drawGame,700);
             setTimeout(gamePending,600);
         }
@@ -94,6 +92,8 @@
             } else {
                 setTimeout(gamePending,1);            
             }
+
+           
         }
 
         
@@ -140,12 +140,51 @@
             }
             //Am Stein?
             for (var i = 0; i<6; i++) {
-                spielfeld[i] = [];
                 for (var z = 0; z<5; z++) {
-                    //i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30
-                    if (i * (canvas.width/spielfeld.length) <= bounceX <= i * (canvas.width/spielfeld.length) + canvas.width/spielfeld.length-5 && 20+z*50 <=bounceY <= 50+z*50) {
+                    if (
+                    //Bedingung obere Kante
+                    (i * brickWidth <= bounceX) && 
+                    (bounceX <= i * brickWidth + brickWidth-5) &&
+                    (50+z*50 >= bounceY) &&
+                    (bounceY >= 40+z*50) &&
+                    (spielfeld[i][z] == 1)
+                    ) {
                         spielfeld[i][z] = 0;
-                        //console.log("Hit 1");
+                        dirY *=-1
+                        score++;
+                    } else if (
+                    //Bedingung untere Kante
+                    (i * brickWidth <= bounceX) && 
+                    (bounceX <= i * brickWidth + brickWidth-5) &&
+                    (50+z*50+30 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 40+z*50+30) &&
+                    (spielfeld[i][z] == 1)
+                    ) {
+                        spielfeld[i][z] = 0;
+                        dirY *=-1
+                        score++;
+                    } else if (
+                    //Bedingung rechte Kante
+                    (i * brickWidth <= bounceX) && 
+                    (bounceX <= i * brickWidth-10) &&
+                    (50+z*50 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 40+z*50+30) &&
+                    (spielfeld[i][z] == 1)
+                    ) {
+                        spielfeld[i][z] = 0;
+                        dirX *=-1
+                        score++;
+                    } else if (
+                    //Bedingung linke Kante
+                    (i * brickWidth <= bounceX) && 
+                    (bounceX <= i * brickWidth+10) &&
+                    (50+z*50 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 40+z*50+30) &&
+                    (spielfeld[i][z] == 1)
+                    ) {
+                        spielfeld[i][z] = 0;
+                        dirX *=-1
+                        score++;
                     }
                 }
             }
@@ -172,11 +211,11 @@
         }
 
         function drawScore() {
-            //ctx.fillStyle='#FF00BF';
-            //ctx.font = "30px Arial";
-            //ctx.textAlign="left";
-            //ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
-            //ctx.fillText("X:"+bounceX, 900, 60);
+            ctx.fillStyle='#FF00BF';
+            ctx.font = "30px Arial";
+            ctx.textAlign="left";
+            ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
+            ctx.fillText("Score: "+score, 700, 40);
             //ctx.fillText("Y:"+bounceY, 900, 100);
         }
 
@@ -186,10 +225,8 @@
             
             for (i = 0; i<6; i++) {
                 for (z = 0; z<5; z++) {
-                    if (spielfeld[i][z] == 1) {
-                        console.log(i + " " + z);   
+                    if (spielfeld[i][z] == 1) { 
                         ctx.fillStyle='#0000FF';
-                        ctx.fillRect(i*10,z*10,5,5);
                         ctx.fillRect(i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30)
                     }
                 }
