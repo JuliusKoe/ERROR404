@@ -1,0 +1,8 @@
+1. JSON Erstellen und einbinden.
+2. Texturen besorgen
+3. Funktionen für Steine
+4. Levelbildschirm
+5. Hauptbildschirm menü
+6. Nach Tod Auswahlmöglichkeiten
+7. Dynamisches Abprallen des balles unten.
+8. Punkte Multiplikator
