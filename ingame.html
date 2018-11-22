@@ -18,7 +18,7 @@
         var pHeight = 20; //Panel Höhe
         var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
         var isdead = false;
-
+        var background = new Image();
         
 
         function init() {
@@ -27,6 +27,11 @@
             canvas.style.border = "#FF00BF 5px solid";
             posP = canvas.width/2;
 
+            background.src = "./pinkishsky.jpg";
+
+            background.onload = function(){
+             ctx.drawImage(background,0,0,1000,750);
+            }
             ctx.fillStyle="#FF00BF";
             ctx.font = "30px Arial";
             ctx.textAlign="center";
@@ -46,6 +51,7 @@
                 ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
             //Spielfeld neumalen
+            ctx.drawImage(background,0,0,1000,750);
             drawPanel()
             drawBall()
             drawScore()
@@ -81,9 +87,11 @@
 
 
             //Male Kugel
-            ctx.fillStyle='#FF00BF';
+            ctx.fillStyle='#FFFFFF';
             ctx.beginPath();
             ctx.arc(bounceX,bounceY,ballsize,0,2 * Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
             ctx.stroke();
         }
 

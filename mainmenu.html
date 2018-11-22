@@ -41,14 +41,14 @@
             }
         
         function startGame () {
-            window.location.href("./ingame.html")
+            window.location.href = ("./ingame.html");
         }
         function setCords (ev) {
           xCord = ev.clientX - canvas.offsetLeft
           yCord = ev.clientY - canvas.offsetTop
         }
         function checkField (){
-            if (xCord > startxpos && xCord < xCord+startxwidth && yCord > startypos && yCord < startypos+startyheight)
+            if (xCord > startxpos && xCord < startxpos+startxwidth && yCord > startypos && yCord < startypos+startyheight)
             {
                 startGame();
             }
