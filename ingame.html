@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 
     <script>
-        var ballsize = 30;
+        var ballsize = 10;
         var canvas, ctx;    
         var mX, mY;
         var bounceX, bounceY;
@@ -33,7 +33,7 @@
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext("2d");
             canvas.style.border = "#FF00BF 5px solid";
-            posP = canvas.width/2;
+            posP = canvas.width/2-pWidth/2;
 
             background.src = "./pinkishsky.jpg";
 
@@ -134,9 +134,10 @@
             if (bounceX >= canvas.width-ballsize || bounceX <= 0+ballsize) dirX *= -1;
             if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
             //Am Panel?
-            if (bounceY >= canvas.height - 40-ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth) {
+            if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth) {
                 //Ergibt die Abfrage Sinn in der if-Abfrage? Nein! Funktioniert es? Ja!...
                 dirY *= -1;
+                //dirY *= ((posP + pWidth/2)-bounceX)/10 ; EXPERIMENT
             }
             //Am Stein?
             for (var i = 0; i<6; i++) {

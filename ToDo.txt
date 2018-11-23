@@ -6,3 +6,9 @@
 6. Nach Tod Auswahlmöglichkeiten
 7. Dynamisches Abprallen des balles unten.
 8. Punkte Multiplikator
+
+bugs:
+
+Ball wird bei Mausklick in den Bildschirm beschleunigt.
+Ball wird nach einigen Sekunden plötzlich langsamer.
+Abpralen von pannel links und rechts nicht implementiert -> tunnelsystem
