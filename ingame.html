@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 
     <script>
-        var ballsize = 10;
+        var ballsize = 30;
         var canvas, ctx;    
         var mX, mY;
         var bounceX, bounceY;
@@ -134,7 +134,7 @@
             if (bounceX >= canvas.width-ballsize || bounceX <= 0+ballsize) dirX *= -1;
             if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
             //Am Panel?
-            if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth) {
+            if (bounceY >= canvas.height - 40-ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth) {
                 //Ergibt die Abfrage Sinn in der if-Abfrage? Nein! Funktioniert es? Ja!...
                 dirY *= -1;
             }
@@ -145,8 +145,8 @@
                     //Bedingung obere Kante
                     (i * brickWidth <= bounceX) && 
                     (bounceX <= i * brickWidth + brickWidth-5) &&
-                    (50+z*50 >= bounceY) &&
-                    (bounceY >= 40+z*50) &&
+                    (60+z*50-ballsize/2 >= bounceY) &&
+                    (bounceY >= 50+z*50-ballsize/2) &&
                     (spielfeld[i][z] == 1)
                     ) {
                         spielfeld[i][z] = 0;
@@ -156,8 +156,8 @@
                     //Bedingung untere Kante
                     (i * brickWidth <= bounceX) && 
                     (bounceX <= i * brickWidth + brickWidth-5) &&
-                    (50+z*50+30 >= bounceY) && //30 ist Brickheight
-                    (bounceY >= 40+z*50+30) &&
+                    (50+z*50+40 + ballsize/2 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 50+z*50+30 + ballsize/2) &&
                     (spielfeld[i][z] == 1)
                     ) {
                         spielfeld[i][z] = 0;
@@ -165,10 +165,10 @@
                         score++;
                     } else if (
                     //Bedingung rechte Kante
-                    (i * brickWidth <= bounceX) && 
-                    (bounceX <= i * brickWidth-10) &&
-                    (50+z*50 >= bounceY) && //30 ist Brickheight
-                    (bounceY >= 40+z*50+30) &&
+                    (i * brickWidth+ballsize/2 <= bounceX) && 
+                    (bounceX <= i * brickWidth+10+ballsize/2) &&
+                    (50+z*50+30 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 50+z*50) &&
                     (spielfeld[i][z] == 1)
                     ) {
                         spielfeld[i][z] = 0;
@@ -176,10 +176,10 @@
                         score++;
                     } else if (
                     //Bedingung linke Kante
-                    (i * brickWidth <= bounceX) && 
-                    (bounceX <= i * brickWidth+10) &&
-                    (50+z*50 >= bounceY) && //30 ist Brickheight
-                    (bounceY >= 40+z*50+30) &&
+                    (i-1 * brickWidth-ballsize/2 <= bounceX) && 
+                    (bounceX <= i-1 * brickWidth-10-ballsize/2) &&
+                    (50+z*50+30 >= bounceY) && //30 ist Brickheight
+                    (bounceY >= 50+z*50) &&
                     (spielfeld[i][z] == 1)
                     ) {
                         spielfeld[i][z] = 0;
