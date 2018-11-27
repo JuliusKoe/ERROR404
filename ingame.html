@@ -26,8 +26,11 @@
         var score = 0;
 
         var background = new Image();
+        var block1 = new Image();
+        var block2 = new Image();
 
-        
+        block1.src = "./blockdesign1lowres.png"; 
+        block2.src = "./blockdesign2lowres.png"; 
 
         function init() {
             canvas = document.getElementById("canvas");
@@ -47,10 +50,13 @@
 
 
             spielfeld = new Array();
-            for (let i = 0; i<6; i++) {
+            for (let i = 0; i<8; i++) {
                 spielfeld[i] = new Array();
-                for (let z = 0; z<5; z++) {
+                for (let z = 0; z<4; z++) {
                     spielfeld[i][z] = 1;
+                }
+                for (let z=3; z<6; z++) {
+                    spielfeld[i][z] = 2;
                 }
             }
 
@@ -140,7 +146,7 @@
                 //dirY *= ((posP + pWidth/2)-bounceX)/10 ; EXPERIMENT
             }
             //Am Stein?
-            for (var i = 0; i<6; i++) {
+            for (var i = 0; i<8; i++) {
                 for (var z = 0; z<5; z++) {
                     if (
                     //Bedingung obere Kante
@@ -148,9 +154,9 @@
                     (bounceX <= i * brickWidth + brickWidth-5) &&
                     (60+z*50-ballsize/2 >= bounceY) &&
                     (bounceY >= 50+z*50-ballsize/2) &&
-                    (spielfeld[i][z] == 1)
+                    (spielfeld[i][z] > 0)
                     ) {
-                        spielfeld[i][z] = 0;
+                        spielfeld[i][z] -= 1;
                         dirY *=-1
                         score++;
                     } else if (
@@ -159,9 +165,9 @@
                     (bounceX <= i * brickWidth + brickWidth-5) &&
                     (50+z*50+40 + ballsize/2 >= bounceY) && //30 ist Brickheight
                     (bounceY >= 50+z*50+30 + ballsize/2) &&
-                    (spielfeld[i][z] == 1)
+                    (spielfeld[i][z] > 0)
                     ) {
-                        spielfeld[i][z] = 0;
+                        spielfeld[i][z] -= 1;
                         dirY *=-1
                         score++;
                     } else if (
@@ -170,9 +176,9 @@
                     (bounceX <= i * brickWidth+10+ballsize/2) &&
                     (50+z*50+30 >= bounceY) && //30 ist Brickheight
                     (bounceY >= 50+z*50) &&
-                    (spielfeld[i][z] == 1)
+                    (spielfeld[i][z] > 0)
                     ) {
-                        spielfeld[i][z] = 0;
+                        spielfeld[i][z] -= 1;
                         dirX *=-1
                         score++;
                     } else if (
@@ -181,9 +187,9 @@
                     (bounceX <= i-1 * brickWidth-10-ballsize/2) &&
                     (50+z*50+30 >= bounceY) && //30 ist Brickheight
                     (bounceY >= 50+z*50) &&
-                    (spielfeld[i][z] == 1)
+                    (spielfeld[i][z] > 0)
                     ) {
-                        spielfeld[i][z] = 0;
+                        spielfeld[i][z] -= 1;
                         dirX *=-1
                         score++;
                     }
@@ -192,7 +198,7 @@
 
 
             //Neue Berechnung
-            bounceX += 2 * dirX;
+            bounceX += 4 * dirX;
             bounceY += 3 * dirY;
 
 
@@ -224,12 +230,18 @@
             //Level implementieren
             ctx.fillStyle='#0000FF';
             
-            for (i = 0; i<6; i++) {
+            for (i = 0; i<8; i++) {
                 for (z = 0; z<5; z++) {
-                    if (spielfeld[i][z] == 1) { 
-                        ctx.fillStyle='#0000FF';
-                        ctx.fillRect(i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30)
+                    if (spielfeld[i][z] == 1) {
+                       
+                   
+                        ctx.drawImage(block1,i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30);
                     }
+                    if (spielfeld[i][z] == 2) {
+                       
+                   
+                       ctx.drawImage(block2,i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30);
+                   }
                 }
             }
 
