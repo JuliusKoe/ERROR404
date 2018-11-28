@@ -50,6 +50,8 @@
 
         var score = 0;
 
+        var bouncefactor = 1;
+
 
 
         var background = new Image();
@@ -282,16 +284,35 @@
 
             //Am Panel?
 
-            if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth) {
-
-                //Ergibt die Abfrage Sinn in der if-Abfrage? Nein! Funktioniert es? Ja!...
+            if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.25) {
 
                 dirY *= -1;
+                dirX = -2;
+                bouncefactor = 2;
 
                 //dirY *= ((posP + pWidth/2)-bounceX)/10 ; EXPERIMENT
 
-            }
+            } else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.5) {
 
+                dirY *= -1;
+                dirX = -1;
+                bouncefactor = 1;
+            
+            } else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.75) {
+
+                dirY *= -1;
+                dirX = 1;
+                bouncefactor = 1;
+
+            } else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*1) {
+
+                dirY *= -1;
+                dirX = 2;
+                bouncefactor = 2;
+
+            }     
+            
+            
             //Am Stein?
 
             for (var i = 0; i<8; i++) {
@@ -398,9 +419,9 @@
 
             //Neue Berechnung
 
-            bounceX += 4 * dirX;
+            bounceX += 5 *  dirX;
 
-            bounceY += 3 * dirY;
+            bounceY += 4 *  dirY; //* den Betrag von dirX
 
 
 
