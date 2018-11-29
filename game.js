@@ -31,7 +31,11 @@ x_heart.src = "./X.png";
 
 function init() {
 
+<<<<<<< HEAD
     loadLevel(level);
+=======
+    loadLevel("level");
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
 
 
     //var level = loadJson();
@@ -67,6 +71,7 @@ function init() {
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
     spielfeld = new Array();
+<<<<<<< HEAD
     // for (let i = 0; i < level.positions[1].length; i++) {
 
     //      spielfeld[i] = new Array();
@@ -76,6 +81,8 @@ function init() {
     //         spielfeld[i][z] = level.positions[i][z];
 
     //     }
+=======
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
 
     // }
     for (let i = 0; i < 8; i++) {
@@ -100,6 +107,7 @@ function init() {
 
 }
 
+<<<<<<< HEAD
 function loadLevel(levelName) {
     var xmlhttp = new XMLHttpRequest();
 
@@ -118,11 +126,41 @@ function loadLevel(levelName) {
     }
 
     xmlhttp.open("GET", "level.json", true);
+=======
+// //loads a general json
+// async function loadJson(src){
+//     let response = await fetch(src);
+//     let json = await response.json();
+//     return json;
+// }
+
+function loadLevel(levelName) {
+    var xmlhttp = new XMLHttpRequest();
+
+    XMLHttpRequest.onreadystatechange = function () {
+        console.log("Test");
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            levelDataRaw = xmlhttmp.responseText;
+
+            console.log("level loaded");
+            initlevel();
+        }
+    }
+
+    xmlhttp.open("GET", "./level.json", true);
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
     xmlhttp.send();
 
 
 }
 
+<<<<<<< HEAD
+=======
+function initlevel() {
+    
+}
+
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
 
 
 
