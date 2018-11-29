@@ -1,64 +1,40 @@
 var ballsize = 10;
-
 var canvas, ctx;    
-
 var mX, mY;
-
 var bounceX, bounceY;
-
 var dirX = 1, dirY = -1;
-
 var pWidth = 150; //Panel Breite
-
 var pHeight = 20; //Panel Höhe
-
 var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
-
 var isdead = false;
-
 var i = 0; //Hilfsvariable
-
 var key_press;
-
 var key_code;
-
 var spielfeld;
-
 var brickWidth;
-
 var score = 0;
-
 var bouncefactor = 1;
-
 var live = 3;
-
 var h1 = 1;
-
-
-
+var level;
 var background = new Image();
-
 var block1 = new Image();
-
 var block2 = new Image();
-
 var heart = new Image();
-
 var x_heart = new Image();
-
-
-
 block1.src = "./blockdesign1lowres.png"; 
-
 block2.src = "./blockdesign2lowres.png"; 
-
 heart.src = "./heart.png";
-
 x_heart.src = "./X.png";
 
 
 
 function init() {
+
+    loadLevel(level);
+
+
+    //var level = loadJson();
 
     canvas = document.getElementById("canvas");
 
@@ -66,7 +42,7 @@ function init() {
 
     canvas.style.border = "#FF00BF 5px solid";
 
-    canvas.mouse
+    //canvas.mouse
 
     posP = canvas.width/2-pWidth/2;
 
@@ -90,21 +66,21 @@ function init() {
 
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
-
-
-
-
     spielfeld = new Array();
+    // for (let i = 0; i < level.positions[1].length; i++) {
 
-    for (let i = 0; i<8; i++) {
+    //      spielfeld[i] = new Array();
+
+    //     for (let z = 0; z <= level.positions.length; z++) {
+
+    //         spielfeld[i][z] = level.positions[i][z];
+
+    //     }
+
+    // }
+    for (let i = 0; i < 8; i++) {
 
         spielfeld[i] = new Array();
-
-        for (let z = 0; z<4; z++) {
-
-            spielfeld[i][z] = 1;
-
-        }
 
         for (let z=3; z<6; z++) {
 
@@ -121,6 +97,29 @@ function init() {
     //setTimeout(drawGame,700);
 
     setTimeout(gamePending,600);
+
+}
+
+function loadLevel(levelName) {
+    var xmlhttp = new XMLHttpRequest();
+
+    console.log("Test1");
+
+    xmlhttp.onreadystatechange = function () {
+        console.log("Test2");
+        if (this.readyState == 4 && this.status == 200) {
+            levelDataRaw = this.responseText;
+
+            console.log("level loaded");
+            level = JSON.parse(this.responseText);
+            console.log(level.positions);
+            console.log(level.positions[1].length);
+        }
+    }
+
+    xmlhttp.open("GET", "level.json", true);
+    xmlhttp.send();
+
 
 }
 
