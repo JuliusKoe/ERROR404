@@ -31,7 +31,11 @@ x_heart.src = "./X.png";
 
 function init() {
 
+<<<<<<< HEAD
+    loadLevel(level);
+=======
     loadLevel("level");
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
 
 
     //var level = loadJson();
@@ -42,7 +46,7 @@ function init() {
 
     canvas.style.border = "#FF00BF 5px solid";
 
-    canvas.mouse
+    //canvas.mouse
 
     posP = canvas.width/2-pWidth/2;
 
@@ -67,16 +71,23 @@ function init() {
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
     spielfeld = new Array();
+<<<<<<< HEAD
+    // for (let i = 0; i < level.positions[1].length; i++) {
 
-    for (let i = 0; i<8; i++) {
+    //      spielfeld[i] = new Array();
+
+    //     for (let z = 0; z <= level.positions.length; z++) {
+
+    //         spielfeld[i][z] = level.positions[i][z];
+
+    //     }
+=======
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
+
+    // }
+    for (let i = 0; i < 8; i++) {
 
         spielfeld[i] = new Array();
-
-        for (let z = 0; z<4; z++) {
-
-            spielfeld[i][z] = 1;
-
-        }
 
         for (let z=3; z<6; z++) {
 
@@ -96,6 +107,26 @@ function init() {
 
 }
 
+<<<<<<< HEAD
+function loadLevel(levelName) {
+    var xmlhttp = new XMLHttpRequest();
+
+    console.log("Test1");
+
+    xmlhttp.onreadystatechange = function () {
+        console.log("Test2");
+        if (this.readyState == 4 && this.status == 200) {
+            levelDataRaw = this.responseText;
+
+            console.log("level loaded");
+            level = JSON.parse(this.responseText);
+            console.log(level.positions);
+            console.log(level.positions[1].length);
+        }
+    }
+
+    xmlhttp.open("GET", "level.json", true);
+=======
 // //loads a general json
 // async function loadJson(src){
 //     let response = await fetch(src);
@@ -118,15 +149,19 @@ function loadLevel(levelName) {
     }
 
     xmlhttp.open("GET", "./level.json", true);
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
     xmlhttp.send();
 
 
 }
 
+<<<<<<< HEAD
+=======
 function initlevel() {
     
 }
 
+>>>>>>> 9d12c58ccf4e20162dd0fd31f0becfee79fbe3a3
 
 
 
