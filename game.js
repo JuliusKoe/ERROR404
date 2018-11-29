@@ -112,6 +112,7 @@ function loadLevel(levelName) {
             levelDataRaw = xmlhttmp.responseText;
 
             console.log("level loaded");
+            
             initlevel();
         }
     }
