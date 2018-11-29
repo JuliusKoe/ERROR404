@@ -12,3 +12,5 @@ bugs:
 Ball wird bei Mausklick in den Bildschirm beschleunigt. -> Nur bei Edge
 Ball wird nach einigen Sekunden plötzlich langsamer.
 Abpralen von pannel links und rechts nicht implementiert -> tunnelsystem
+
+JK: Abprallen würde ich fürs einfach als KnownBug lassen und wenn Zeit ist als letztes machen
