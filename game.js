@@ -66,6 +66,8 @@ function init() {
 
     canvas.style.border = "#FF00BF 5px solid";
 
+    canvas.mouse
+
     posP = canvas.width/2-pWidth/2;
 
 
