@@ -54,6 +54,8 @@
 
         var live = 3;
 
+        var h1 = 1;
+
 
 
         var background = new Image();
@@ -64,13 +66,17 @@
 
         var heart = new Image();
 
+        var x_heart = new Image();
+
 
 
         block1.src = "./blockdesign1lowres.png"; 
 
         block2.src = "./blockdesign2lowres.png"; 
 
-        heart.src = ".heart.jpg"
+        heart.src = "./heart.png";
+
+        x_heart.src = "./X.png";
 
 
 
@@ -482,10 +488,11 @@
 
             //ctx.drawImage(heart)
 
-            ctx.drawImage(heart,10,700,20,710);
+            for (i = 1; i <= live; i++) {
 
-            //ctx.fillText("Y:"+bounceY, 900, 100);
+                ctx.drawImage(heart,-25+i*35,680,30,30);
 
+            }
         }
 
 
@@ -581,17 +588,21 @@
 
                 isdead = true;
 
+                live--;
+
                 if (live > 0) {
 
-                    live--;
                     ctx.fillText("DEATH",canvas.width/2, canvas.height/2);
                     ctx.fillText("Für neues Spiel Leertaste",canvas.width/2, canvas.height/2 + 50);
+                    ctx.drawImage(x_heart,-25+(live+1)*35,680,30,30);
+                    
                     
                 }
 
                 if (live == 0) {
                     ctx.fillText("GAME OVER",canvas.width/2, canvas.height/2);
                     ctx.fillText("F5 to restart Game",canvas.width/2, canvas.height/2 + 50);
+                    ctx.drawImage(x_heart,-25+(live+1)*35,680,30,30);
                 }
 
                 newGame();
