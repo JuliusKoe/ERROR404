@@ -1,64 +1,40 @@
 var ballsize = 10;
-
 var canvas, ctx;    
-
 var mX, mY;
-
 var bounceX, bounceY;
-
 var dirX = 1, dirY = -1;
-
 var pWidth = 150; //Panel Breite
-
 var pHeight = 20; //Panel Höhe
-
 var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
-
 var isdead = false;
-
 var i = 0; //Hilfsvariable
-
 var key_press;
-
 var key_code;
-
 var spielfeld;
-
 var brickWidth;
-
 var score = 0;
-
 var bouncefactor = 1;
-
 var live = 3;
-
 var h1 = 1;
-
-
-
+var level;
 var background = new Image();
-
 var block1 = new Image();
-
 var block2 = new Image();
-
 var heart = new Image();
-
 var x_heart = new Image();
-
-
-
 block1.src = "./blockdesign1lowres.png"; 
-
 block2.src = "./blockdesign2lowres.png"; 
-
 heart.src = "./heart.png";
-
 x_heart.src = "./X.png";
 
 
 
 function init() {
+
+    loadLevel("level");
+
+
+    //var level = loadJson();
 
     canvas = document.getElementById("canvas");
 
@@ -90,10 +66,6 @@ function init() {
 
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
-
-
-
-
     spielfeld = new Array();
 
     for (let i = 0; i<8; i++) {
@@ -122,6 +94,36 @@ function init() {
 
     setTimeout(gamePending,600);
 
+}
+
+// //loads a general json
+// async function loadJson(src){
+//     let response = await fetch(src);
+//     let json = await response.json();
+//     return json;
+// }
+
+function loadLevel(levelName) {
+    var xmlhttp = new XMLHttpRequest();
+
+    XMLHttpRequest.onreadystatechange = function () {
+        console.log("Test");
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            levelDataRaw = xmlhttmp.responseText;
+
+            console.log("level loaded");
+            initlevel();
+        }
+    }
+
+    xmlhttp.open("GET", "./level.json", true);
+    xmlhttp.send();
+
+
+}
+
+function initlevel() {
+    
 }
 
 
