@@ -175,13 +175,10 @@
                     (bounceY >= 50+z*50+30 + ballsize/2) )
                     switch (spielfeld[i][z]){
                      case 1:
-                        //spielfeld[i][z] -= 1;
-                        //dirY *=-1;
-                        //score += 150* multiplicator;
-                        //multiplicator += 0,2;
                         spielfeld[i][z] -= 1;
-                        dirY *=-1
-                        score++;
+                        dirY *=-1;
+                        score += 150* multiplicator;
+                        multiplicator += 0,2;
                     case 2:
                         spielfeld[i][z] -= 1;
                         dirY *=-1;
