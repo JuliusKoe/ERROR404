@@ -48,7 +48,7 @@ function drawCredbutton () {
 function startGame () {
     window.location.href = ("./ingame.html");
 }
-function startGame () {
+function startCred () {
     window.location.href = ("./credits.html");
 }
 function setCords (ev) {
