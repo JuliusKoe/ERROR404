@@ -20,22 +20,16 @@ var level;
 var background = new Image();
 var block1 = new Image();
 var block2 = new Image();
+var block3 = new Image();
 var heart = new Image();
 var x_heart = new Image();
-block1.src = "./blockdesign1lowres.png"; 
-block2.src = "./blockdesign2lowres.png"; 
-heart.src = "./heart.png";
-x_heart.src = "./X.png";
+
 
 
 
 function init() {
 
-    loadLevel(level);
-
-
-
-    //var level = loadJson();
+    //loadLevel(level);
 
     canvas = document.getElementById("canvas");
 
@@ -50,6 +44,11 @@ function init() {
 
 
     background.src = "./pinkishsky.jpg";
+    block1.src = "./blockdesign1lowres.png"; 
+    block2.src = "./blockdesign2lowres.png"; 
+    block3.src = "./blocktexture3goldlowres.png";
+    heart.src = "./heart.png";
+    x_heart.src = "./X.png";
 
 
 
@@ -81,21 +80,20 @@ function init() {
 
     // }
     
-    for (let i = 0; i < 8; i++) {
+    spielfeld = [
+        [1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 1, 3, 3, 3, 3, 3, 1, 1],
+        [2, 1, 0, 2, 2, 2, 0, 1, 2],
+        [0, 0, 0, 1, 2, 1, 0, 0, 0],
+        [1, 0, 0, 1, 2, 1, 0, 0, 1]
+    ]
 
-        spielfeld[i] = new Array();
-
-        for (let z=3; z<6; z++) {
-
-            spielfeld[i][z] = 2;
-
-        }
-
-    }
-
+    console.log(spielfeld.length);
+    console.log(spielfeld[1].length);
 
 
-    brickWidth = canvas.width / spielfeld.length
+
+    brickWidth = canvas.width / spielfeld[1].length
 
     //setTimeout(drawGame,700);
 
@@ -106,17 +104,13 @@ function init() {
 function loadLevel(levelName) {
     var xmlhttp = new XMLHttpRequest();
 
-    console.log("Test1");
 
     xmlhttp.onreadystatechange = function () {
-        console.log("Test2");
         if (this.readyState == 4 && this.status == 200) {
             levelDataRaw = this.responseText;
 
             console.log("level loaded");
             level = JSON.parse(this.responseText);
-            console.log(level.positions);
-            console.log(level.positions[1].length);
         }
     }
 
@@ -313,9 +307,9 @@ function drawBall() {
     
     //Am Stein?
 
-    for (var i = 0; i<8; i++) {
+    for (var i = 0; i<spielfeld[1].length; i++) {
 
-        for (var z = 0; z<5; z++) {
+        for (var z = 0; z<spielfeld.length; z++) {
 
             if (
 
@@ -329,11 +323,11 @@ function drawBall() {
 
             (bounceY >= 50+z*50-ballsize/2) &&
 
-            (spielfeld[i][z] > 0)
+            (spielfeld[z][i] > 0)
 
             ) {
 
-                spielfeld[i][z] -= 1;
+                spielfeld[z][i] -= 1;
 
                 dirY *=-1
 
@@ -351,11 +345,11 @@ function drawBall() {
 
             (bounceY >= 50+z*50+30 + ballsize/2) &&
 
-            (spielfeld[i][z] > 0)
+            (spielfeld[z][i] > 0)
 
             ) {
 
-                spielfeld[i][z] -= 1;
+                spielfeld[z][i] -= 1;
 
                 dirY *=-1
 
@@ -373,11 +367,11 @@ function drawBall() {
 
             (bounceY >= 50+z*50) &&
 
-            (spielfeld[i][z] > 0)
+            (spielfeld[z][i] > 0)
 
             ) {
 
-                spielfeld[i][z] -= 1;
+                spielfeld[z][i] -= 1;
 
                 dirX *=-1
 
@@ -395,11 +389,11 @@ function drawBall() {
 
             (bounceY >= 50+z*50) &&
 
-            (spielfeld[i][z] > 0)
+            (spielfeld[z][i] > 0)
 
             ) {
 
-                spielfeld[i][z] -= 1;
+                spielfeld[z][i] -= 1;
 
                 dirX *=-1
 
@@ -417,9 +411,9 @@ function drawBall() {
 
     //Neue Berechnung
 
-    bounceX += 8 * bouncefactor * dirX;
+    bounceX += 4 * bouncefactor * dirX;
 
-    bounceY += 7 * dirY;
+    bounceY += 3 * dirY;
 
 
 
@@ -486,29 +480,37 @@ function drawLevel() {
 
     
 
-    for (i = 0; i<8; i++) {
+    for (i = 0; i<spielfeld[1].length; i++) {
 
-        for (z = 0; z<5; z++) {
+        for (z = 0; z<spielfeld.length; z++) {
 
-            if (spielfeld[i][z] == 1) {
+            if (spielfeld[z][i] == 1 || spielfeld[z][i] >= 4) {
 
                
 
            
 
-                ctx.drawImage(block1,i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30);
+                ctx.drawImage(block1,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
 
             }
 
-            if (spielfeld[i][z] == 2) {
+            if (spielfeld[z][i] == 2) {
 
                
 
            
 
-               ctx.drawImage(block2,i * (canvas.width/spielfeld.length),50+z*50,canvas.width/spielfeld.length-5, 30);
-
+               ctx.drawImage(block2,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
            }
+
+           if (spielfeld[z][i] == 3) {
+
+               
+
+           
+
+                ctx.drawImage(block3,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+            }
 
         }
 
