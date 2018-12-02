@@ -2,10 +2,10 @@ var canvasWidth = 1000;
 var canvasHeight = 750;
 var canvas, ctx;
 
-var startxpos = 400;
-var startxwidth = 200;
-var startypos = 675;
-var startyheight = 100;
+var backxpos = 400;
+var backxwidth = 200;
+var backypos = 625;
+var backyheight = 100;
 var background = new Image();
 
 function init () {
@@ -19,14 +19,20 @@ function init () {
         ctx.drawImage(background,0,0,canvasWidth,canvasHeight);
         drawBackbutton();
     }
-    
+
 }
 function drawBackbutton () {
+    console.log("test");
     ctx.fillStyle = "pink";
     ctx.fillRect(backxpos,backypos,backxwidth,backyheight);
     ctx.stroke();
 
     ctx.fillStyle = "#000000";
+    ctx.font = "bold 16px Arial";
+    ctx.fillText("Back", canvasWidth/2 - 25 , 680);
+
+
+    ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 16px Arial";
     ctx.fillText("Hier könnte Ihre Werbung stehen", 25, 25);
     }
@@ -40,7 +46,7 @@ function setCords (ev) {
   yCord = ev.clientY - canvas.offsetTop
 }
 function checkField (){
-    if (xCord > menuxpos && xCord < menuxpos+startxwidth && yCord > menuypos && yCord < menuypos+menuyheight)
+    if (xCord > backxpos && xCord < backxpos+backxwidth && yCord > backypos && yCord < backypos+backyheight)
     {
         goBack();
     }
