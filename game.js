@@ -37,8 +37,6 @@ function init() {
     canvas.style.border = "#000000 5px solid";
     posP = canvas.width/2-pWidth/2;
 
-<<<<<<< HEAD
-
 
     background.src = "./pinkishskying.jpg";
 
