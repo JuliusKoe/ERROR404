@@ -3,6 +3,7 @@ var canvas, ctx;
 var mX, mY;
 var bounceX, bounceY;
 var dirX = 1, dirY = -1;
+var pannellift = 120;
 var pWidth = 150; //Panel Breite
 var pHeight = 20; //Panel Höhe
 var posP; //Zentrierte Position des Panels (Mouse - Breite des Panels / 2)
@@ -18,6 +19,7 @@ var live = 3;
 var h1 = 1;
 var level;
 var hitmarkersound;
+var multiplikator = 1;
 var background = new Image();
 var block1 = new Image();
 var block2 = new Image();
@@ -27,6 +29,7 @@ var block5 = new Image();
 var heart = new Image();
 var x_heart = new Image();
 var hitmarker = new Image();
+var pannel = new Image();
 
 
 
@@ -50,6 +53,7 @@ function init() {
     heart.src = "./textures/heart.png";
     x_heart.src = "./textures/X.png";
     hitmarker.src = "./textures/hitmarker.png";
+    pannel.src = "./textures/pannel.png";
 
     background.onload = function(){
 
@@ -113,7 +117,7 @@ function levelimplementation() {
 //Funktion die den Spielstatus gamePending inne hat
 function gamePending(startkey) {
     //Startvariable 
-    bounceY = canvas.height - 41;
+    bounceY = canvas.height - pannellift - 10;
     bounceX = posP + pWidth/2;
     dirX = 1, dirY = -1;
 
@@ -175,31 +179,31 @@ function drawBall() {
     if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
 
     //Am Panel? Wenn ja, wie prallt der Ball ab?
-    if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.1) {
+    if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.1) {
         dirY *= -1;
         dirX = -1;
         bouncefactor = 2;
         //dirY *= ((posP + pWidth/2)-bounceX)/10; EXPERIMENT
     } 
-    else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.35) 
+    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.35) 
     {
         dirY *= -1;
         dirX = -1;
         bouncefactor = 1.5;
     } 
-    else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.75) 
+    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.75) 
     {
         dirY *= -1;
         bouncefactor = 1;
 
     } 
-    else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*0.9) 
+    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.9) 
     {
         dirY *= -1;
         dirX = 1;
         bouncefactor = 1.5;
     } 
-    else if (bounceY >= canvas.height - 40 && bounceX >= posP   && bounceX <= posP+pWidth*1) 
+    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*1) 
     {
         dirY *= -1;
         dirX = 1;
@@ -221,7 +225,8 @@ function drawBall() {
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirY *=-1
-                score++;    
+                score += 100*multiplikator;    
+                multiplikator += 0.1;  
             } else if (
             //Bedingung untere Kante
             (i * brickWidth <= bounceX) && 
@@ -234,7 +239,8 @@ function drawBall() {
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirY *=-1
-                score++;
+                score += 100*multiplikator;
+                multiplikator += 0.1;  
             } else if (
             //Bedingung rechte Kante
             (i * brickWidth+ballsize/2 <= bounceX) && 
@@ -247,7 +253,8 @@ function drawBall() {
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirX *=-1
-                score++;             
+                score += 100*multiplikator; 
+                multiplikator += 0.1;              
             } else if (
             //Bedingung linke Kante
             (i-1 * brickWidth-ballsize/2 <= bounceX) && 
@@ -260,7 +267,9 @@ function drawBall() {
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirX *=-1;
-                score++;              
+                score += 100*multiplikator; 
+                multiplikator += 0.1;  
+                           
             }
         }
     }
@@ -280,8 +289,7 @@ function drawBall() {
 
 
 function drawPanel() {
-    ctx.fillStyle='#00FF00';
-    ctx.fillRect(posP,canvas.height - 30,pWidth,pHeight);
+    ctx.drawImage(pannel,posP,canvas.height - pannellift,pWidth,pHeight);
 }
 
 
@@ -289,8 +297,9 @@ function drawScore() {
     ctx.fillStyle='#FFFFFF';
     ctx.font = "30px Arial";
     ctx.textAlign="left";
-    ctx.fillText("ERROR 404",0,canvas.offsetTop+20);
-    ctx.fillText("Score: "+score, 850, 30);
+    ctx.fillText("ERROR 404",0,canvas.offsetTop+30);
+    //ctx.fillText("Multiplikator: x"+multiplikator, 600, 30);
+    ctx.fillText("Score: "+score, 800, 30);
     for (i = 1; i <= live; i++) {
         ctx.drawImage(heart,-25+i*35,680,30,30);
     }
@@ -349,6 +358,7 @@ document.addEventListener("mousemove", panel, false);
 //Bin ich "dead" (Ball ist in der "Todeszone" oder geht das Spiel weiter?
 function dead() {
     if (bounceY >= canvas.height-ballsize) {
+        multiplikator = 1;
         ctx.textAlign="center";
         ctx.fillStyle='#FFFFFF';
         isdead = true;
