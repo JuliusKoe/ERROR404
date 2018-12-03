@@ -14,13 +14,11 @@ Julius Körner und Marcel Lindner
  
 ### Eigene Lizenzen
  
-MIT
+MIT - Siehe eigener Lizenstext
  
 ### Verwendete Lizenzen
  
 Sämtliche verwendeten Bilder und Grafiken unterliegen der Creative Commons Zero Lizenz und sind demnach frei verwendbar.
- 
-Freeware
  
 ## Spielbeschreibung
  
