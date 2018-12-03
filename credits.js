@@ -49,7 +49,7 @@ function drawBackbutton () {
     ctx.font = "bold 22px Arial";
     ctx.fillText("Lizenzen", 25, 275);
     ctx.font = "bold 16px Arial";
-    ctx.fillText("Eigen: GNU", 25, 300);
+    ctx.fillText("Eigen: MIT", 25, 300);
     ctx.fillText("Alle verwendeten Grafiken nutzen die Creative Commons Zero Lizens", 25, 325);
     ctx.font = "bold 22px Arial";
     ctx.fillText("How 2 play", 25, 375);

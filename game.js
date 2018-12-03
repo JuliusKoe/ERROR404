@@ -22,6 +22,7 @@ var background = new Image();
 var block1 = new Image();
 var block2 = new Image();
 var block3 = new Image();
+var block4 = new Image();
 var heart = new Image();
 var x_heart = new Image();
 var hitmarker = new Image();
@@ -38,11 +39,12 @@ function init() {
     posP = canvas.width/2-pWidth/2;
 
 
-    background.src = "./pinkishskying.jpg";
+    background.src = "./pinkishskying.png";
 
     block1.src = "./blockdesign1lowres.png"; 
     block2.src = "./blockdesign2lowres.png"; 
     block3.src = "./blocktexture3goldlowres.png";
+    block4.src = "./blockdesign4lowres.png";
     heart.src = "./heart.png";
     x_heart.src = "./X.png";
     hitmarker.src = "./hitmarker.png";
@@ -65,7 +67,7 @@ function init() {
     ctx.textAlign="center";
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
-    
+
     //Level Laden
     loadLevel("level.json");
     console.log(level);
@@ -73,7 +75,7 @@ function init() {
     
     // spielfeld = [
     //     [1, 0, 1, 0, 1, 0, 1, 0, 1],
-    //     [1, 1, 3, 3, 3, 3, 3, 1, 1],
+    //     [1, 1, 3, 3, 4, 4, 3, 1, 1],
     //     [2, 1, 0, 2, 2, 2, 0, 1, 2],
     //     [0, 0, 0, 1, 2, 1, 0, 0, 0],
     //     [1, 0, 0, 1, 2, 1, 0, 0, 1]
@@ -312,6 +314,9 @@ function drawLevel() {
             }
             if (spielfeld[z][i] == 3) {
                 ctx.drawImage(block3,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+            }
+            if (spielfeld[z][i] == 4) {
+                ctx.drawImage(block4,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
             }
         }
     }
