@@ -53,7 +53,9 @@ function init() {
     }
 
     //Sounds
-    hitmarkersound = new Audio("hitmarker_sound.mp3");
+    //document.getElementById('1').play();
+    // document.getElementById('1').pause();
+    //hitmarkersound = new Audio("hitmarker_sound.mp3");
     //hitmarkersound.play();
 
     //Start-Schriftzug
@@ -90,8 +92,9 @@ function loadLevel(levelName) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             levelDataRaw = this.responseText;
-            console.log("level loaded");
             level = JSON.parse(this.responseText);
+            console.log("level loaded");
+            console.log(level.name);
         }
     }
     xmlhttp.open("GET", levelName, true);
@@ -100,7 +103,7 @@ function loadLevel(levelName) {
 
 //Weil loadlevel dauert, kleine Zeitüberbrückung
 function levelimplementation() {
-    console.log(level.positions);
+    console.log(level.name);
     spielfeld = level.positions;
     console.log(spielfeld);
     brickWidth = canvas.width / spielfeld[1].length
@@ -215,6 +218,7 @@ function drawBall() {
             (bounceY >= 50+z*50-ballsize/2) &&
             (spielfeld[z][i] > 0)
             ) {
+                document.getElementById('1').play();
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirY *=-1
@@ -227,6 +231,7 @@ function drawBall() {
             (bounceY >= 50+z*50+30 + ballsize/2) &&
             (spielfeld[z][i] > 0)
             ) {
+                document.getElementById('1').play();
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirY *=-1
@@ -239,6 +244,7 @@ function drawBall() {
             (bounceY >= 50+z*50) &&
             (spielfeld[z][i] > 0)
             ) {
+                document.getElementById('1').play();
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirX *=-1
@@ -251,6 +257,7 @@ function drawBall() {
             (bounceY >= 50+z*50) &&
             (spielfeld[z][i] > 0)
             ) {
+                document.getElementById('1').play();
                 ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
                 spielfeld[z][i] -= 1;
                 dirX *=-1;
