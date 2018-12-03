@@ -41,10 +41,7 @@ function init() {
 
 
     background.src = "./pinkishskying.jpg";
-=======
-    //Images
-    background.src = "./pinkishsky.jpg";
->>>>>>> 46c93bd77d5aeb9b18e86831b112d8cd1ff9282f
+
     block1.src = "./blockdesign1lowres.png"; 
     block2.src = "./blockdesign2lowres.png"; 
     block3.src = "./blocktexture3goldlowres.png";
