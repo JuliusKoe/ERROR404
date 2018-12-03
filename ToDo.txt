@@ -1,4 +1,4 @@
-1. JSON Erstellen und einbinden.
+    1. JSON Erstellen und einbinden.
 2. Texturen besorgen
 3. Funktionen für Steine
 Zunächst Obsolet    4. Levelbildschirm
