@@ -24,6 +24,7 @@ var hitmarkersound;
 var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
+var gewonnen = 0;  
 //textures
 var background = new Image();
 var block1 = new Image();
@@ -76,7 +77,6 @@ function init() {
 
     //Level Laden
     loadLevel("level.json");
-    console.log(level);
     spielfeld = new Array();
 
 
@@ -103,9 +103,7 @@ function loadLevel(levelName) {
 
 //Weil loadlevel dauert, kleine Zeitüberbrückung
 function levelimplementation() {
-    console.log(level.name);
     spielfeld = level.positions;
-    console.log(spielfeld);
     brickWidth = canvas.width / spielfeld[1].length
     gamePending();
 }
@@ -229,10 +227,10 @@ function drawBall() {
         bouncefactor = 2;
     } 
     else {      
-    
         //Am Stein?
         for (var i = 0; i<spielfeld[1].length; i++) {
             for (var z = 0; z<spielfeld.length; z++) {
+                //Gewonnen?
                 //Bedingung Ecke eines Steines
                 if (
                 //Bedingung Ecke oben Links
@@ -250,8 +248,6 @@ function drawBall() {
                             dauereffekt = 20; 
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -276,8 +272,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -302,8 +296,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -328,8 +320,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -357,8 +347,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -382,8 +370,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -407,8 +393,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -432,8 +416,6 @@ function drawBall() {
                             dauereffekt = 20;
                         }
                         zZwischen = z;
-                        console.log(zZwischen);
-                        console.log(z);
                         multiplikator = 1;
                     } else {
                         spielfeld[z][i] -= 1;
@@ -495,23 +477,23 @@ function drawLevel() {
     for (i = 0; i<spielfeld[1].length; i++) {
         for (z = 0; z<spielfeld.length; z++) {
             if (spielfeld[z][i] == 1 || spielfeld[z][i] >= 4) { //normaler Block oder andere Blöcke, welche nicht verarbeitet werden      
-                ctx.drawImage(block1,i * brickWidth,50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block1,i * brickWidth,50+z*35,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 2) {            
-                ctx.drawImage(block2,i * (brickWidth),50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block2,i * (brickWidth),50+z*35,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 3) {
-                ctx.drawImage(block3,i * (brickWidth),50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block3,i * (brickWidth),50+z*35,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 4) {
-                ctx.drawImage(block4,i * (brickWidth),50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block4,i * (brickWidth),50+z*35,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 5) {
-                ctx.drawImage(block5,i * (brickWidth),50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block5,i * (brickWidth),50+z*35,brickWidth-5, 30);
             }
             if (spielfeld[z][i] > 5) {
                 spielfeld[z][i] = 5;
-                ctx.drawImage(block5,i * (brickWidth),50+z*50,brickWidth-5, 30);
+                ctx.drawImage(block5,i * (brickWidth),50+z*35,brickWidth-5, 30);
             }
         }
     }
@@ -553,15 +535,33 @@ function dead() {
         }
         if (live == 0) {
             ctx.fillText("GAME OVER",canvas.width/2, canvas.height/2);
-            ctx.fillText("F5 to restart Game",canvas.width/2, canvas.height/2 + 50);
             ctx.drawImage(x_heart,-25+(live+1)*35,680,30,30);
+            setTimeout(menu, 600);
         }
         newGame();
     } else {
-        setTimeout(drawGame, 5);
+        gewonnen = 0;
+        for (var i = 0; i<spielfeld[1].length; i++) {
+            for (var z = 0; z<spielfeld.length; z++) {
+                gewonnen += spielfeld[z][i];
+            }
+        }
+        if (gewonnen == 0) {
+            ctx.fillStyle="#FFFFFF";
+            ctx.font = "36px Agency FB";
+            ctx.textAlign="center";
+            ctx.fillText("GEWONNEN",canvas.width/2, canvas.height/2);
+            ctx.fillText("Glückwunsch",canvas.width/2, canvas.height/2 + 50);
+            setTimeout(menu, 3000);
+        } else {
+            setTimeout(drawGame, 5);
+        }
     }
 }
 
+function menu () {
+    window.location.href = ("./mainmenu.html");
+}
 
 //Leertaste wurde gedrückt -> Neues Game wird gestartet
 function newGame() {
