@@ -1,7 +1,7 @@
 var ballsize = 10;
 var canvas, ctx;    
 var mX, mY;
-var bounceX, bounceY;
+var bounceX, bounceY; //koordinaten des Balls
 var dirX = 1, dirY = -1;
 var pannellift = 120;
 var pWidth = 150; //Panel Breite
@@ -24,6 +24,7 @@ var hitmarkersound;
 var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
+//textures
 var background = new Image();
 var block1 = new Image();
 var block2 = new Image();
@@ -47,9 +48,8 @@ function init() {
     canvas.style.border = "#000000 5px solid";
     posP = canvas.width/2-pWidth/2;
 
-
+    //Texturen laden
     background.src = "./textures/pinkishskying.png";
-
     block1.src = "./textures/blockdesign1lowres.png"; 
     block2.src = "./textures/blockdesign2lowres.png"; 
     block3.src = "./textures/blockdesign3lowres.png";
@@ -67,12 +67,6 @@ function init() {
 
     }
 
-    //Sounds
-    //document.getElementById('1').play();
-    // document.getElementById('1').pause();
-    //hitmarkersound = new Audio("hitmarker_sound.mp3");
-    //hitmarkersound.play();
-
     //Start-Schriftzug
     ctx.fillStyle="#FFFFFF";
     ctx.font = "36px Agency FB";
@@ -84,9 +78,6 @@ function init() {
     loadLevel("level.json");
     console.log(level);
     spielfeld = new Array();
-    
-
-    //brickWidth = canvas.width / spielfeld[1].length
 
 
     //Wechsel in GamePending
