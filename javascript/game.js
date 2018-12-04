@@ -13,7 +13,7 @@ var key_press;
 var key_code;
 var spielfeld;
 var brickWidth; //Tatsächlich Platz pro Stein --> echte Width ist nachher brickWidth - 5
-var cd = 5 // collisiondetection parameter
+var cd = 3 // collisiondetection parameter
 var score = 0;
 var bouncefactor = 1;
 var live = 3;
@@ -24,7 +24,7 @@ var hitmarkersound;
 var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
-var gewonnen = 0;  
+var gewonnen = 1;  
 //textures
 var background = new Image();
 var block1 = new Image();
@@ -105,6 +105,11 @@ function loadLevel(levelName) {
 function levelimplementation() {
     spielfeld = level.positions;
     brickWidth = canvas.width / spielfeld[1].length
+    for (var i = 0; i<spielfeld[1].length; i++) {
+        for (var z = 0; z<spielfeld.length; z++) {
+            console.log(spielfeld[z][i]);
+        }
+    }
     gamePending();
 }
 
@@ -539,12 +544,7 @@ function dead() {
         }
         newGame();
     } else {
-        gewonnen = 0;
-        for (var i = 0; i<spielfeld[1].length; i++) {
-            for (var z = 0; z<spielfeld.length; z++) {
-                gewonnen += spielfeld[z][i];
-            }
-        }
+        console.log(gewonnen);
         if (gewonnen == 0) {
             ctx.fillStyle="#FFFFFF";
             ctx.font = "36px Agency FB";
