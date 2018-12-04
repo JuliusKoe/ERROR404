@@ -37,18 +37,12 @@ function drawHead () {
 //buttons
 function drawStartbutton () {
     ctx.drawImage(button,startxpos,startypos,startxwidth,startyheight);
-    //ctx.fillStyle = "pink";
-    //ctx.fillRect(startxpos,startypos,startxwidth,startyheight);
-    //ctx.stroke();
 
     ctx.fillStyle = "black";
     ctx.font = "bold 24px Agency FB";
     ctx.fillText("Start Game", (canvas.width / 2) - 45, (canvas.height / 2) -100);
     }
 function drawCredbutton () {
-    // ctx.fillStyle = "pink";
-    // ctx.fillRect(credxpos,credypos,credxwidth,credyheight);
-    // ctx.stroke();
     ctx.drawImage(button,credxpos,credypos,credxwidth,credyheight);
     
     ctx.fillStyle = "black";
