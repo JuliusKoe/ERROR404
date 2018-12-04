@@ -253,7 +253,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20; 
@@ -279,7 +279,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -305,7 +305,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -331,7 +331,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -360,7 +360,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -385,7 +385,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -410,7 +410,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -435,7 +435,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
