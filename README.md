@@ -55,6 +55,7 @@ https://creativecommons.org/publicdomain/zero/1.0/deed.de
 - Gamedesign & Images:  Marcel
 - Menü & Credits:       Marcel
 - Ingame-Algorythmen:   Julius & Marcel
+    - Rudimentere Basicversion:                 Julius
     - Konzeptioneller Aufbau der Funktionen:    Julius
     - Brick-Collision-Detection:                Julius
     - Panel-Collision-Detection:                Julius
