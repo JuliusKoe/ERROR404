@@ -22,6 +22,8 @@ var level;
 var levelbreite
 var hitmarkersound;
 var multiplikator = 1;
+var dauereffekt = 0;
+var zZwischen;
 var background = new Image();
 var block1 = new Image();
 var block2 = new Image();
@@ -162,6 +164,15 @@ function drawGame() {
     drawBall();
     drawScore();
     drawLevel();
+
+    //Multiplikator Effekt
+    if (dauereffekt > 0) {
+        ctx.fillText("I Bims", 50, 500);
+        console.log(zZwischen);
+        ctx.fillRect(5, 50 + zZwischen * 50 + 5, canvas.width - 10, 20);
+        dauereffekt--;
+    }
+
     //Tod oder Weiter?
     dead();
 }
@@ -232,11 +243,114 @@ function drawBall() {
         for (var i = 0; i<spielfeld[1].length; i++) {
             for (var z = 0; z<spielfeld.length; z++) {
                 //Bedingung Ecke eines Steines
-                //Ecke unten links
-
-
-                //Bedingung Kante eines Steines
                 if (
+                //Bedingung Ecke oben Links
+                (bounceX >= brickWidth * i - cd) &&
+                (bounceX <= brickWidth * i + cd) &&
+                (bounceY >= 50 + z * 50 - cd) &&
+                (bounceY <= 50 + z * 50 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20; 
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirY = -1;
+                    dirX = -1;
+                    score += 100*multiplikator;    
+                    multiplikator += 0.1;  
+                } else if (
+                //Bedingung Ecke unten Links
+                (bounceX >= brickWidth * i - cd) &&
+                (bounceX <= brickWidth * i + cd) &&
+                (bounceY >= 50 + z * 50 + 30 - cd) &&
+                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirY = 1;
+                    dirX = -1;
+                    score += 100*multiplikator;
+                    multiplikator += 0.1;  
+                } else if (
+                //Bedingung Ecke oben Rechts
+                (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
+                (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
+                (bounceY >= 50 + z * 50 - cd) &&
+                (bounceY <= 50 + z * 50 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirX = 1;
+                    dirY = -1;
+                    score += 100*multiplikator; 
+                    multiplikator += 0.1;              
+                } else if (
+                //Bedingung Ecke unten Rechts
+                (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
+                (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
+                (bounceY >= 50 + z * 50 + 30 - cd) &&
+                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirX = 1;
+                    dirY = 1;
+                    score += 100*multiplikator; 
+                    multiplikator += 0.1;  
+                            
+                }
+                //Bedingung Kante eines Steines
+                else if (
                 //Bedingung obere Kante
                 (bounceX >= brickWidth * i + cd) && //cd ist Parameter, wie viel Spielraum
                 (bounceX <= brickWidth * i + brickWidth - 5 - cd) && //5 weil tatsächliche Brickwidth!
@@ -246,8 +360,19 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    spielfeld[z][i] -= 1;
-                    dirY *=-1
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirY *=-1;
                     score += 100*multiplikator;    
                     multiplikator += 0.1;  
                 } else if (
@@ -260,12 +385,23 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    spielfeld[z][i] -= 1;
-                    dirY *=-1
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirY *=-1;
                     score += 100*multiplikator;
                     multiplikator += 0.1;  
                 } else if (
-                //Bedingung rechte Kante
+                //Bedingung links Kante
                 (bounceX >= brickWidth * i - cd) &&
                 (bounceX <= brickWidth * i + cd) &&
                 (bounceY >= 50 + z * 50 + cd) &&
@@ -274,12 +410,23 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    spielfeld[z][i] -= 1;
-                    dirX *=-1
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
+                    dirX *=-1;
                     score += 100*multiplikator; 
                     multiplikator += 0.1;              
                 } else if (
-                //Bedingung linke Kante
+                //Bedingung rechte Kante
                 (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
                 (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
                 (bounceY >= 50 + z * 50 + cd) &&
@@ -288,7 +435,18 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    spielfeld[z][i] -= 1;
+                    if (multiplikator >= 1.3) {
+                        for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
+                            spielfeld[z][mhilf] -=1;
+                            dauereffekt = 20;
+                        }
+                        zZwischen = z;
+                        console.log(zZwischen);
+                        console.log(z);
+                        multiplikator = 1;
+                    } else {
+                        spielfeld[z][i] -= 1;
+                    }
                     dirX *=-1;
                     score += 100*multiplikator; 
                     multiplikator += 0.1;  
@@ -322,7 +480,7 @@ function drawScore() {
     ctx.font = "30px Arial";
     ctx.textAlign="left";
     ctx.fillText("ERROR 404",0,canvas.offsetTop+30);
-    //ctx.fillText("Multiplikator: x"+multiplikator, 600, 30);
+    ctx.fillText(multiplikator, 0, 400);
     ctx.fillText("Score: "+score, 800, 30);
     for (i = 1; i <= live; i++) {
         ctx.drawImage(heart,-25+i*35,680,30,30);
