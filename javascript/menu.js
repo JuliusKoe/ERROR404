@@ -27,11 +27,14 @@ function init () {
         drawCredbutton();
     }
 }
+
+//Ueberschrift
 function drawHead () {
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 48px Agency FB";
     ctx.fillText("ERROR404", (canvas.width / 2) - 85, 120);
 }
+//buttons
 function drawStartbutton () {
     ctx.drawImage(button,startxpos,startypos,startxwidth,startyheight);
     //ctx.fillStyle = "pink";
@@ -53,6 +56,7 @@ function drawCredbutton () {
     ctx.fillText("Credits", (canvas.width / 2) - 30, (canvas.height / 2) +25);
     }
 
+//redirection
 function startGame () {
     window.location.href = ("./ingame.html");
 }

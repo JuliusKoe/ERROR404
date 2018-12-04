@@ -31,7 +31,7 @@ function drawBackbutton () {
     ctx.font = "bold 24px Agency FB";
     ctx.fillText("Back", canvasWidth/2 - 25 , 675);
 
-
+    //Credits auf das Canvas schreiben
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 24px Agency FB";
     ctx.fillText("ERROR404 - Arkanoid", 25, 25);
@@ -64,6 +64,7 @@ function drawBackbutton () {
     
     }
 
+//zurueck zum Menue
 function goBack () {
     window.location.href = ("./mainmenu.html");
 }
