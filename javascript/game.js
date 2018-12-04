@@ -25,7 +25,7 @@ var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
 var gewonnen = 1;
-var pcgeschwindigkeit = 5; //umso höher umso schneller  
+var pcgeschwindigkeit =1; //umso höher umso schneller  
 //textures
 var background = new Image();
 var block1 = new Image();
@@ -238,7 +238,6 @@ function drawBall() {
         //Am Stein?
         for (var i = 0; i<spielfeld[1].length; i++) {
             for (var z = 0; z<spielfeld.length; z++) {
-                //Gewonnen?
                 //Bedingung Ecke eines Steines
                 if (
                 //Bedingung Ecke oben Links
@@ -550,9 +549,12 @@ function dead() {
         gewonnen = 0;
         for (var i = 0; i<spielfeld[1].length; i++) {
             for (var z = 0; z<spielfeld.length; z++) {
-                gewonnen += spielfeld[z][i];
+                if (spielfeld[z][i]>=0) {
+                    gewonnen += spielfeld[z][i];
+                }
             }
         }
+        console.log(gewonnen);
         if (gewonnen == 0) {
             ctx.fillStyle="#FFFFFF";
             ctx.font = "36px Agency FB";
