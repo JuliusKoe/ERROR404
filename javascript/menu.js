@@ -23,7 +23,6 @@ function init () {
         drawStartbutton();
         drawCredbutton();
     }
-    
 }
 
 function drawStartbutton () {

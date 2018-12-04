@@ -46,6 +46,6 @@ Erfolgreich getestet wurde der Google Chrome Browser
 Dieses Projekt steht unter der MIT Lizenz und ist demnach ohne Einschränkung frei verwendbar.
  
 ### Verwendete Lizenzen
- 
-Sämtliche verwendeten Bilder und Grafiken unterliegen der Creative Commons Zero Lizenz und sind demnach frei verwendbar.
+Credits for the buton design goes to Vecteezy.com (https://www.vecteezy.com/vector-art/120148-free-colorful-arcade-buttons)
+Sämtliche weiteren verwendeten Bilder und Grafiken unterliegen der Creative Commons Zero Lizenz und sind demnach auch frei verwendbar.
 https://creativecommons.org/publicdomain/zero/1.0/deed.de
