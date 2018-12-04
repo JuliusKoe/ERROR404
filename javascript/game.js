@@ -12,12 +12,14 @@ var i = 0; //Hilfsvariable
 var key_press;
 var key_code;
 var spielfeld;
-var brickWidth;
+var brickWidth; //Tatsächlich Platz pro Stein --> echte Width ist nachher brickWidth - 5
+var cd = 5 // collisiondetection parameter
 var score = 0;
 var bouncefactor = 1;
 var live = 3;
 var h1 = 1;
 var level;
+var levelbreite
 var hitmarkersound;
 var multiplikator = 1;
 var background = new Image();
@@ -47,7 +49,7 @@ function init() {
 
     block1.src = "./textures/blockdesign1lowres.png"; 
     block2.src = "./textures/blockdesign2lowres.png"; 
-    block3.src = "./textures/blocktexture3goldlowres.png";
+    block3.src = "./textures/blockdesign3lowres.png";
     block4.src = "./textures/blockdesign4lowres.png";
     block5.src = "./textures/blockdesign5lowres.png";
     heart.src = "./textures/heart.png";
@@ -126,9 +128,6 @@ function gamePending(startkey) {
 
     //Game Layout
     ctx.drawImage(background,0,0,1000,750);
-    //Todeszone
-    ctx.fillStyle="#0404B4";
-    ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
     //Male Spielfeld    
     drawPanel();
@@ -157,9 +156,6 @@ function drawGame() {
 
     //Game Layout
     ctx.drawImage(background,0,0,1000,750);
-    //Todeszone
-    ctx.fillStyle="#0404B4";
-    ctx.fillRect(0,canvas.height-5,canvas.width,7);
 
     //Spielfeld neumalen
     drawPanel();
@@ -176,100 +172,128 @@ function drawBall() {
 
     //Am Rand?
     if (bounceX >= canvas.width-ballsize || bounceX <= 0+ballsize) dirX *= -1;
-    if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
+    else if (bounceY >= canvas.height-ballsize || bounceY <= 0+ballsize) dirY *= -1;
 
     //Am Panel? Wenn ja, wie prallt der Ball ab?
-    if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.1) {
+    else if (
+        bounceY >= canvas.height - pannellift - ballsize/2 && 
+        bounceY <= canvas.height - pannellift - ballsize/2 +  pHeight &&
+        bounceX >= posP   && 
+        bounceX <= posP+pWidth*0.1) 
+    {
         dirY *= -1;
         dirX = -1;
         bouncefactor = 2;
         //dirY *= ((posP + pWidth/2)-bounceX)/10; EXPERIMENT
     } 
-    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.35) 
+    else if (
+        bounceY >= canvas.height - pannellift - ballsize/2 &&
+        bounceY <= canvas.height - pannellift - ballsize/2 +  pHeight &&
+        bounceX >= posP   &&
+        bounceX <= posP+pWidth*0.35) 
     {
         dirY *= -1;
         dirX = -1;
         bouncefactor = 1.5;
     } 
-    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.75) 
+    else if (
+        bounceY >= canvas.height - pannellift - ballsize/2 &&
+        bounceY <= canvas.height - pannellift - ballsize/2 +  pHeight &&
+        bounceX >= posP && 
+        bounceX <= posP+pWidth*0.75) 
     {
         dirY *= -1;
         bouncefactor = 1;
 
-    } 
-    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*0.9) 
+    }
+    else if (
+        bounceY >= canvas.height - pannellift - ballsize/2 &&
+        bounceY <= canvas.height - pannellift - ballsize/2 +  pHeight &&
+        bounceX >= posP &&
+        bounceX <= posP+pWidth*0.9) 
     {
         dirY *= -1;
         dirX = 1;
         bouncefactor = 1.5;
     } 
-    else if (bounceY >= canvas.height - pannellift - ballsize/2 && bounceX >= posP   && bounceX <= posP+pWidth*1) 
+    else if (
+        bounceY >= canvas.height - pannellift - ballsize/2 &&
+        bounceY <= canvas.height - pannellift - ballsize/2 +  pHeight &&
+        bounceX >= posP &&
+        bounceX <= posP+pWidth*1) 
     {
         dirY *= -1;
         dirX = 1;
         bouncefactor = 2;
-    }       
+    } 
+    else {      
     
-    //Am Stein?
-    for (var i = 0; i<spielfeld[1].length; i++) {
-        for (var z = 0; z<spielfeld.length; z++) {
-            if (
-            //Bedingung obere Kante
-            (i * brickWidth <= bounceX) && 
-            (bounceX <= i * brickWidth + brickWidth-5) &&
-            (60+z*50-ballsize/2 >= bounceY) &&
-            (bounceY >= 50+z*50-ballsize/2) &&
-            (spielfeld[z][i] > 0)
-            ) {
-                document.getElementById('1').play();
-                ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                spielfeld[z][i] -= 1;
-                dirY *=-1
-                score += 100*multiplikator;    
-                multiplikator += 0.1;  
-            } else if (
-            //Bedingung untere Kante
-            (i * brickWidth <= bounceX) && 
-            (bounceX <= i * brickWidth + brickWidth-5) &&
-            (50+z*50+40 + ballsize/2 >= bounceY) && //30 ist Brickheight
-            (bounceY >= 50+z*50+30 + ballsize/2) &&
-            (spielfeld[z][i] > 0)
-            ) {
-                document.getElementById('1').play();
-                ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                spielfeld[z][i] -= 1;
-                dirY *=-1
-                score += 100*multiplikator;
-                multiplikator += 0.1;  
-            } else if (
-            //Bedingung rechte Kante
-            (i * brickWidth+ballsize/2 <= bounceX) && 
-            (bounceX <= i * brickWidth+10+ballsize/2) &&
-            (50+z*50+30 >= bounceY) && //30 ist Brickheight
-            (bounceY >= 50+z*50) &&
-            (spielfeld[z][i] > 0)
-            ) {
-                document.getElementById('1').play();
-                ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                spielfeld[z][i] -= 1;
-                dirX *=-1
-                score += 100*multiplikator; 
-                multiplikator += 0.1;              
-            } else if (
-            //Bedingung linke Kante
-            (i-1 * brickWidth-ballsize/2 <= bounceX) && 
-            (bounceX <= i-1 * brickWidth-10-ballsize/2) &&
-            (50+z*50+30 >= bounceY) && //30 ist Brickheight
-            (bounceY >= 50+z*50) &&
-            (spielfeld[z][i] > 0)
-            ) {
-                document.getElementById('1').play();
-                ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                spielfeld[z][i] -= 1;
-                dirX *=-1;
-                score += 100*multiplikator; 
-                multiplikator += 0.1;  
-                           
+        //Am Stein?
+        for (var i = 0; i<spielfeld[1].length; i++) {
+            for (var z = 0; z<spielfeld.length; z++) {
+                //Bedingung Ecke eines Steines
+                //Ecke unten links
+
+
+                //Bedingung Kante eines Steines
+                if (
+                //Bedingung obere Kante
+                (bounceX >= brickWidth * i + cd) && //cd ist Parameter, wie viel Spielraum
+                (bounceX <= brickWidth * i + brickWidth - 5 - cd) && //5 weil tatsächliche Brickwidth!
+                (bounceY >= 50 + z * 50 - cd) &&
+                (bounceY <= 50 + z * 50 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    spielfeld[z][i] -= 1;
+                    dirY *=-1
+                    score += 100*multiplikator;    
+                    multiplikator += 0.1;  
+                } else if (
+                //Bedingung untere Kante
+                (bounceX >= brickWidth * i + cd) &&
+                (bounceX <= brickWidth * i + brickWidth - 5 - cd) &&
+                (bounceY >= 50 + z * 50 + 30 - cd) && //30 ist brickheight
+                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    spielfeld[z][i] -= 1;
+                    dirY *=-1
+                    score += 100*multiplikator;
+                    multiplikator += 0.1;  
+                } else if (
+                //Bedingung rechte Kante
+                (bounceX >= brickWidth * i - cd) &&
+                (bounceX <= brickWidth * i + cd) &&
+                (bounceY >= 50 + z * 50 + cd) &&
+                (bounceY <= 50 + z * 50 + 30 - cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    spielfeld[z][i] -= 1;
+                    dirX *=-1
+                    score += 100*multiplikator; 
+                    multiplikator += 0.1;              
+                } else if (
+                //Bedingung linke Kante
+                (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
+                (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
+                (bounceY >= 50 + z * 50 + cd) &&
+                (bounceY <= 50 + z * 50 + 30 - cd) &&
+                (spielfeld[z][i] > 0)
+                ) {
+                    document.getElementById('1').play();
+                    ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
+                    spielfeld[z][i] -= 1;
+                    dirX *=-1;
+                    score += 100*multiplikator; 
+                    multiplikator += 0.1;  
+                            
+                }
             }
         }
     }
@@ -312,23 +336,23 @@ function drawLevel() {
     for (i = 0; i<spielfeld[1].length; i++) {
         for (z = 0; z<spielfeld.length; z++) {
             if (spielfeld[z][i] == 1 || spielfeld[z][i] >= 4) { //normaler Block oder andere Blöcke, welche nicht verarbeitet werden      
-                ctx.drawImage(block1,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block1,i * brickWidth,50+z*50,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 2) {            
-                ctx.drawImage(block2,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block2,i * (brickWidth),50+z*50,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 3) {
-                ctx.drawImage(block3,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block3,i * (brickWidth),50+z*50,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 4) {
-                ctx.drawImage(block4,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block4,i * (brickWidth),50+z*50,brickWidth-5, 30);
             }
             if (spielfeld[z][i] == 5) {
-                ctx.drawImage(block5,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block5,i * (brickWidth),50+z*50,brickWidth-5, 30);
             }
             if (spielfeld[z][i] > 5) {
                 spielfeld[z][i] = 5;
-                ctx.drawImage(block5,i * (canvas.width/spielfeld[1].length),50+z*50,canvas.width/spielfeld[1].length-5, 30);
+                ctx.drawImage(block5,i * (brickWidth),50+z*50,brickWidth-5, 30);
             }
         }
     }
