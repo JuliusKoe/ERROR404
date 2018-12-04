@@ -7,6 +7,7 @@ var backxwidth = 200;
 var backypos = 625;
 var backyheight = 100;
 var background = new Image();
+var button = new Image();
 
 function init () {
     canvas = document.getElementById("canvas");
@@ -14,6 +15,7 @@ function init () {
     canvas.style.border = "pink 5px solid";
 
     background.src = "./textures/pinkishsky.jpg";
+    button.src = "./textures/buttontrans.png";
 
     background.onload = function(){
         ctx.drawImage(background,0,0,canvasWidth,canvasHeight);
@@ -22,14 +24,11 @@ function init () {
 
 }
 function drawBackbutton () {
-    console.log("test");
-    ctx.fillStyle = "pink";
-    ctx.fillRect(backxpos,backypos,backxwidth,backyheight);
-    ctx.stroke();
+    ctx.drawImage(button,backxpos,backypos,backxwidth,backyheight);
 
     ctx.fillStyle = "#000000";
     ctx.font = "bold 16px Arial";
-    ctx.fillText("Back", canvasWidth/2 - 25 , 680);
+    ctx.fillText("Back", canvasWidth/2 - 25 , 675);
 
 
     ctx.fillStyle = "#FFFFFF";
