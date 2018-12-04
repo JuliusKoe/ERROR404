@@ -77,7 +77,7 @@ function init() {
 
 
     //Level Laden
-    loadLevel("level_new.json");
+    loadLevel("level.json");
     spielfeld = new Array();
 
 
@@ -112,7 +112,6 @@ function levelimplementation() {
         }
     }
     gewonnen--;
-    console.log(gewonnen);
     gamePending();
 }
 
@@ -554,7 +553,6 @@ function dead() {
                 }
             }
         }
-        console.log(gewonnen);
         if (gewonnen == 0) {
             ctx.fillStyle="#FFFFFF";
             ctx.font = "36px Agency FB";
