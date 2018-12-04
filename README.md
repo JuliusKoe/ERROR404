@@ -35,9 +35,11 @@ Um ein anderes Level (muss im richtigen Format sein) zu laden, dieses mit dem na
     5. Generell den Anweisungen auf dem Bildschirm folgen und Buttons anklicken
  
 ## Browserkompatibilität
-Erfolgreich getestet wurde der Google Chrome Browser
+Erfolgreich getestet wurde der Google Chrome und Microsoft Edge Browser
 
 ## Known Bugs
+Collision detection ist nicht 100% akkurat.
+Trefferaudio wird bei schnellen Abprallern nur ein mal abgespielt.
 
 ## Lizenzen
  
@@ -50,17 +52,24 @@ Credits for the buton design goes to Vecteezy.com (https://www.vecteezy.com/vect
 Sämtliche weiteren verwendeten Bilder und Grafiken unterliegen der Creative Commons Zero Lizenz und sind demnach auch frei verwendbar.
 https://creativecommons.org/publicdomain/zero/1.0/deed.de
 
-## Wer hat welchen Anteil
+## Arbeitspakete
 
-- Gamedesign & Images:  Marcel
-- Menü & Credits:       Marcel
-- Ingame-Algorythmen:   Julius & Marcel
+- Gamedesign, Textures, fonds and format:       Marcel
+- Menü & Credits:                               Marcel
+- Ingame-Algorythmen:                           Julius & Marcel
     - Rudimentere Basicversion:                 Julius
     - Konzeptioneller Aufbau der Funktionen:    Julius
-    - Brick-Collision-Detection:                Julius
+    - Brick-Collision-Detection:                Julius & Marcel
     - Panel-Collision-Detection:                Julius
     - Leveldesign:                              Marcel
     - Optimierung des Codes:                    Marcel & Julius
-- Pitchslide:           Julius
-- Readme:               Marcel
-
+    - Pitchslide:                               Julius
+    - Punktemultiplikator                       Marcel
+    - Leveldesign                               Julius & Marcel
+    - JSON implementation                       Julius
+    - Ton                                       Julius
+    - Power Up                                  Julius
+- Readme:                                       Marcel
+- Debugging                                     Marcel
+- Dateistruktur                                 Marcel
+- Organisation und toDos                        Marcel
