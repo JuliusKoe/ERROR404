@@ -49,3 +49,17 @@ Dieses Projekt steht unter der MIT Lizenz und ist demnach ohne Einschränkung fr
 Credits for the buton design goes to Vecteezy.com (https://www.vecteezy.com/vector-art/120148-free-colorful-arcade-buttons)
 Sämtliche weiteren verwendeten Bilder und Grafiken unterliegen der Creative Commons Zero Lizenz und sind demnach auch frei verwendbar.
 https://creativecommons.org/publicdomain/zero/1.0/deed.de
+
+## Wer hat welchen Anteil
+
+- Gamedesign & Images:  Marcel
+- Menü & Credits:       Marcel
+- Ingame-Algorythmen:   Julius & Marcel
+    - Konzeptioneller Aufbau der Funktionen:    Julius
+    - Brick-Collision-Detection:                Julius
+    - Panel-Collision-Detection:                Julius
+    - Leveldesign:                              Marcel
+    - Optimierung des Codes:                    Marcel & Julius
+- Pitchslide:           Julius
+- Readme:               Marcel
+
