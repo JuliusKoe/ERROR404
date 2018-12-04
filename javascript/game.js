@@ -76,7 +76,7 @@ function init() {
 
 
     //Level Laden
-    loadLevel("level.json");
+    loadLevel("level_new.json");
     spielfeld = new Array();
 
 
@@ -158,7 +158,7 @@ function drawGame() {
 
     //Multiplikator Effekt
     if (dauereffekt > 0) {
-        ctx.drawImage(burnrow, 5, 50 + zZwischen * 50 + 5, canvas.width - 10, 20);
+        ctx.drawImage(burnrow, 5, 50 + zZwischen * 35 + 5, canvas.width - 10, 20);
         dauereffekt--;
     }
 
@@ -236,8 +236,8 @@ function drawBall() {
                 //Bedingung Ecke oben Links
                 (bounceX >= brickWidth * i - cd) &&
                 (bounceX <= brickWidth * i + cd) &&
-                (bounceY >= 50 + z * 50 - cd) &&
-                (bounceY <= 50 + z * 50 + cd) &&
+                (bounceY >= 50 + z * 35 - cd) &&
+                (bounceY <= 50 + z * 35 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -260,8 +260,8 @@ function drawBall() {
                 //Bedingung Ecke unten Links
                 (bounceX >= brickWidth * i - cd) &&
                 (bounceX <= brickWidth * i + cd) &&
-                (bounceY >= 50 + z * 50 + 30 - cd) &&
-                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (bounceY >= 50 + z * 35 + 30 - cd) &&
+                (bounceY <= 50 + z * 35 + 30 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -284,8 +284,8 @@ function drawBall() {
                 //Bedingung Ecke oben Rechts
                 (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
                 (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
-                (bounceY >= 50 + z * 50 - cd) &&
-                (bounceY <= 50 + z * 50 + cd) &&
+                (bounceY >= 50 + z * 35 - cd) &&
+                (bounceY <= 50 + z * 35 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -308,8 +308,8 @@ function drawBall() {
                 //Bedingung Ecke unten Rechts
                 (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
                 (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
-                (bounceY >= 50 + z * 50 + 30 - cd) &&
-                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (bounceY >= 50 + z * 35 + 30 - cd) &&
+                (bounceY <= 50 + z * 35 + 30 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -335,8 +335,8 @@ function drawBall() {
                 //Bedingung obere Kante
                 (bounceX >= brickWidth * i + cd) && //cd ist Parameter, wie viel Spielraum
                 (bounceX <= brickWidth * i + brickWidth - 5 - cd) && //5 weil tatsächliche Brickwidth!
-                (bounceY >= 50 + z * 50 - cd) &&
-                (bounceY <= 50 + z * 50 + cd) &&
+                (bounceY >= 50 + z * 35 - cd) &&
+                (bounceY <= 50 + z * 35 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -358,8 +358,8 @@ function drawBall() {
                 //Bedingung untere Kante
                 (bounceX >= brickWidth * i + cd) &&
                 (bounceX <= brickWidth * i + brickWidth - 5 - cd) &&
-                (bounceY >= 50 + z * 50 + 30 - cd) && //30 ist brickheight
-                (bounceY <= 50 + z * 50 + 30 + cd) &&
+                (bounceY >= 50 + z * 35 + 30 - cd) && //30 ist brickheight
+                (bounceY <= 50 + z * 35 + 30 + cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -381,8 +381,8 @@ function drawBall() {
                 //Bedingung links Kante
                 (bounceX >= brickWidth * i - cd) &&
                 (bounceX <= brickWidth * i + cd) &&
-                (bounceY >= 50 + z * 50 + cd) &&
-                (bounceY <= 50 + z * 50 + 30 - cd) &&
+                (bounceY >= 50 + z * 35 + cd) &&
+                (bounceY <= 50 + z * 35 + 30 - cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -404,8 +404,8 @@ function drawBall() {
                 //Bedingung rechte Kante
                 (bounceX >= brickWidth * i + brickWidth - 5 - cd) &&
                 (bounceX <= brickWidth * i + brickWidth - 5 + cd) &&
-                (bounceY >= 50 + z * 50 + cd) &&
-                (bounceY <= 50 + z * 50 + 30 - cd) &&
+                (bounceY >= 50 + z * 35 + cd) &&
+                (bounceY <= 50 + z * 35 + 30 - cd) &&
                 (spielfeld[z][i] > 0)
                 ) {
                     document.getElementById('1').play();
@@ -453,7 +453,6 @@ function drawScore() {
     ctx.font = "36px Agency FB";
     ctx.textAlign="left";
     ctx.fillText("ERROR 404",0,canvas.offsetTop+30);
-    ctx.fillText(multiplikator, 0, 400);
     ctx.fillText("Score: "+score, 800,canvas.offsetTop+30);
     //Leben
     for (i = 1; i <= live; i++) {
