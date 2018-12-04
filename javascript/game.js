@@ -471,6 +471,7 @@ function drawScore() {
     for (var b = 1; b <= 10 ; b++)
     {
         if (multiplikator >= 1 + b * 0.1) {
+            ctx.fillRect(canvas.width/2 - 200 + 7.5 + (b - 1) * (390/10), 20, (390/10) - 5, 10);
         }
     }
 }
