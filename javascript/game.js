@@ -25,7 +25,7 @@ var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
 var gewonnen = 1;
-var pcgeschwindigkeit =1; //umso höher umso schneller  
+var pcgeschwindigkeit =3; //umso höher umso schneller  
 //textures
 var background = new Image();
 var block1 = new Image();
