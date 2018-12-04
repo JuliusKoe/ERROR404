@@ -107,9 +107,11 @@ function levelimplementation() {
     brickWidth = canvas.width / spielfeld[1].length
     for (var i = 0; i<spielfeld[1].length; i++) {
         for (var z = 0; z<spielfeld.length; z++) {
-            console.log(spielfeld[z][i]);
+            gewonnen += spielfeld[z][i];
         }
     }
+    gewonnen--;
+    console.log(gewonnen);
     gamePending();
 }
 
@@ -469,7 +471,6 @@ function drawScore() {
     for (var b = 1; b <= 10 ; b++)
     {
         if (multiplikator >= 1 + b * 0.1) {
-            ctx.fillRect(canvas.width/2 - 200 + 2 + (b - 1) * (390/10), 20, (390/10) - 5, 10);
         }
     }
 }
@@ -544,7 +545,12 @@ function dead() {
         }
         newGame();
     } else {
-        console.log(gewonnen);
+        gewonnen = 0;
+        for (var i = 0; i<spielfeld[1].length; i++) {
+            for (var z = 0; z<spielfeld.length; z++) {
+                gewonnen += spielfeld[z][i];
+            }
+        }
         if (gewonnen == 0) {
             ctx.fillStyle="#FFFFFF";
             ctx.font = "36px Agency FB";
