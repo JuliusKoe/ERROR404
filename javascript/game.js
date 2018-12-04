@@ -34,6 +34,7 @@ var heart = new Image();
 var x_heart = new Image();
 var hitmarker = new Image();
 var pannel = new Image();
+var burnrow = new Image();
 
 
 
@@ -58,6 +59,7 @@ function init() {
     x_heart.src = "./textures/X.png";
     hitmarker.src = "./textures/hitmarker.png";
     pannel.src = "./textures/pannel.png";
+    burnrow.src = "./textures/burnrow.png";
 
     background.onload = function(){
 
@@ -167,9 +169,7 @@ function drawGame() {
 
     //Multiplikator Effekt
     if (dauereffekt > 0) {
-        ctx.fillText("I Bims", 50, 500);
-        console.log(zZwischen);
-        ctx.fillRect(5, 50 + zZwischen * 50 + 5, canvas.width - 10, 20);
+        ctx.drawImage(burnrow, 5, 50 + zZwischen * 50 + 5, canvas.width - 10, 20);
         dauereffekt--;
     }
 
