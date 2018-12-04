@@ -27,25 +27,22 @@ function init () {
         drawCredbutton();
     }
 }
+
+//Ueberschrift
 function drawHead () {
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 48px Agency FB";
     ctx.fillText("ERROR404", (canvas.width / 2) - 85, 120);
 }
+//buttons
 function drawStartbutton () {
     ctx.drawImage(button,startxpos,startypos,startxwidth,startyheight);
-    //ctx.fillStyle = "pink";
-    //ctx.fillRect(startxpos,startypos,startxwidth,startyheight);
-    //ctx.stroke();
 
     ctx.fillStyle = "black";
     ctx.font = "bold 24px Agency FB";
     ctx.fillText("Start Game", (canvas.width / 2) - 45, (canvas.height / 2) -100);
     }
 function drawCredbutton () {
-    // ctx.fillStyle = "pink";
-    // ctx.fillRect(credxpos,credypos,credxwidth,credyheight);
-    // ctx.stroke();
     ctx.drawImage(button,credxpos,credypos,credxwidth,credyheight);
     
     ctx.fillStyle = "black";
@@ -53,6 +50,7 @@ function drawCredbutton () {
     ctx.fillText("Credits", (canvas.width / 2) - 30, (canvas.height / 2) +25);
     }
 
+//redirection
 function startGame () {
     window.location.href = ("./ingame.html");
 }
