@@ -24,7 +24,8 @@ var hitmarkersound;
 var multiplikator = 1;
 var dauereffekt = 0;
 var zZwischen;
-var gewonnen = 1;  
+var gewonnen = 1;
+var pcgeschwindigkeit = 5; //umso höher umso schneller  
 //textures
 var background = new Image();
 var block1 = new Image();
@@ -81,7 +82,7 @@ function init() {
 
 
     //Wechsel in GamePending
-    setTimeout(levelimplementation,600);
+    setTimeout(levelimplementation,600 * pcgeschwindigkeit);
 }
 
 
@@ -144,7 +145,7 @@ function gamePending(startkey) {
     if (key_press == "A") {
         drawGame();
     } else {
-        setTimeout(gamePending,1);            
+        setTimeout(gamePending,1 * pcgeschwindigkeit);            
     }
 }
 
@@ -542,7 +543,7 @@ function dead() {
         if (live == 0) {
             ctx.fillText("GAME OVER",canvas.width/2, canvas.height/2);
             ctx.drawImage(x_heart,-25+(live+1)*35,680,30,30);
-            setTimeout(menu, 600);
+            setTimeout(menu, 600 * pcgeschwindigkeit);
         }
         newGame();
     } else {
@@ -558,9 +559,9 @@ function dead() {
             ctx.textAlign="center";
             ctx.fillText("GEWONNEN",canvas.width/2, canvas.height/2);
             ctx.fillText("Glückwunsch",canvas.width/2, canvas.height/2 + 50);
-            setTimeout(menu, 3000);
+            setTimeout(menu, 3000 * pcgeschwindigkeit);
         } else {
-            setTimeout(drawGame, 5);
+            setTimeout(drawGame, 5 * pcgeschwindigkeit);
         }
     }
 }
@@ -580,9 +581,9 @@ function newGame() {
         dirX = 1;
         dirY = 1;
         isdead = false;
-        setTimeout(gamePending, 700)
+        setTimeout(gamePending, 700 * pcgeschwindigkeit)
     } else {
-        setTimeout(newGame, 10);
+        setTimeout(newGame, 10 * pcgeschwindigkeit);
     }  
 }
 
