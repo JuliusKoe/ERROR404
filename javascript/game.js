@@ -143,7 +143,7 @@ function gamePending(startkey) {
     ctx.fillStyle="#FFFFFF";
     ctx.font = "36px Agency FB";
     ctx.textAlign="center";
-    ctx.fillText("Drücke A zum starten", canvas.width/2, 40)
+    ctx.fillText("Drücke A zum starten", canvas.width/2, 550)
 
     if (key_press == "A") {
         drawGame();
@@ -253,7 +253,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20; 
@@ -279,7 +279,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -305,7 +305,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -331,7 +331,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -360,7 +360,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -385,7 +385,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -410,7 +410,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -435,7 +435,7 @@ function drawBall() {
                 ) {
                     document.getElementById('1').play();
                     ctx.drawImage(hitmarker,bounceX-ballsize,bounceY-ballsize,50,50);
-                    if (multiplikator >= 1.3) {
+                    if (multiplikator >= 2.0) {
                         for (var mhilf = 0; mhilf < spielfeld[z].length; mhilf++) {
                             spielfeld[z][mhilf] -=1;
                             dauereffekt = 20;
@@ -482,8 +482,18 @@ function drawScore() {
     ctx.fillText("ERROR 404",0,canvas.offsetTop+30);
     ctx.fillText(multiplikator, 0, 400);
     ctx.fillText("Score: "+score, 800,canvas.offsetTop+30);
+    //Leben
     for (i = 1; i <= live; i++) {
         ctx.drawImage(heart,-25+i*35,680,30,30);
+    }
+    //Booster
+    ctx.strokeStyle='#FFFFFF';
+    ctx.strokeRect(canvas.width/2 - 200, 15, 400, 20);
+    for (var b = 1; b <= 10 ; b++)
+    {
+        if (multiplikator >= 1 + b * 0.1) {
+            ctx.fillRect(canvas.width/2 - 200 + 2 + (b - 1) * (390/10), 20, (390/10) - 5, 10);
+        }
     }
 }
 
