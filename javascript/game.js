@@ -75,7 +75,7 @@ function init() {
 
     //Start-Schriftzug
     ctx.fillStyle="#FFFFFF";
-    ctx.font = "30px Arial";
+    ctx.font = "36px Agency FB";
     ctx.textAlign="center";
     ctx.fillText("Los geht's!", canvas.width/2, canvas.height/2);
 
@@ -141,7 +141,7 @@ function gamePending(startkey) {
 
     //Starte Spiel mit F
     ctx.fillStyle="#FFFFFF";
-    ctx.font = "30px Arial";
+    ctx.font = "36px Agency FB";
     ctx.textAlign="center";
     ctx.fillText("Drücke A zum starten", canvas.width/2, 40)
 
@@ -477,11 +477,11 @@ function drawPanel() {
 
 function drawScore() {
     ctx.fillStyle='#FFFFFF';
-    ctx.font = "30px Arial";
+    ctx.font = "36px Agency FB";
     ctx.textAlign="left";
     ctx.fillText("ERROR 404",0,canvas.offsetTop+30);
     ctx.fillText(multiplikator, 0, 400);
-    ctx.fillText("Score: "+score, 800, 30);
+    ctx.fillText("Score: "+score, 800,canvas.offsetTop+30);
     for (i = 1; i <= live; i++) {
         ctx.drawImage(heart,-25+i*35,680,30,30);
     }
